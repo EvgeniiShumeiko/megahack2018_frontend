@@ -1,0 +1,65 @@
+pipeline:
+  install:
+    image: node:carbon
+    commands:
+      - npm install --quiet
+    when:
+      branch:
+        - master
+        - feature/*
+      event:
+        - push
+        - pull_request
+
+  lint:
+    image: node:carbon
+    commands:
+      - npm run lint
+    when:
+      branch:
+        - master
+        - feature/*
+      event:
+        - push
+        - pull_request
+
+  test:
+    image: node:carbon
+    commands:
+      - npm test
+    when:
+      branch:
+        - master
+        - feature/*
+      event:
+        - push
+        - pull_request
+
+  build:
+    image: node:carbon
+    environment:
+      - API_HOST=https://api
+      - SESSION_KEY=secret_key
+    commands:
+      - npm install -g gulp
+      - gulp environment
+      - NODE_ENV=production npm run dist
+    when:
+      branch:
+        - master
+        - feature/*
+      event:
+        - push
+        - pull_request
+
+  deploy:
+    image: node:carbon
+    secrets: [ SSH_HOST, SSH_KEY, SSH_PATH ]
+    commands:
+      - npm install -g gulp
+      - gulp deploy
+    when:
+      branch:
+        - master
+      event:
+        - push

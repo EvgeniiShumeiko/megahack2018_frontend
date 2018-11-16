@@ -1,0 +1,19 @@
+{
+    "presets": ["@babel/preset-env", "@babel/typescript", "@babel/preset-react"],
+    "plugins": [
+        ["@babel/plugin-proposal-export-default-from"],
+        ["@babel/plugin-proposal-export-namespace-from"],
+        ["@babel/plugin-proposal-optional-chaining", { "loose": true }],
+        ["@babel/plugin-proposal-decorators", { "legacy": true }],
+        ["@babel/plugin-proposal-class-properties", { "loose": true }],
+        ["@babel/plugin-proposal-pipeline-operator", { "proposal": "minimal" }],
+        ["react-hot-loader/babel"]
+    ],
+    "env": {
+        "test": {
+            "plugins": [
+                [ "babel-plugin-webpack-alias", { "config": "./webpack/index.js" } ]
+            ]
+        }
+    }
+}

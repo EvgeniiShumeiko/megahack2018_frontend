@@ -1,0 +1,21 @@
+@import '~@core/mixins/media'
+@import '~@core/variables'
+
++media-retina()
+    .container
+        width $screen-retina
+
++media-desktop()
+    .container
+        width $screen-desktop
+
++media-tablet()
+    .container
+        width $screen-tablet
+
++media-mobile()
+    .container
+        width 100%
+
+.container
+    display grid

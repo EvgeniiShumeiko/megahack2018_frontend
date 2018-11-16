@@ -1,0 +1,9 @@
+{
+    "DEBUG": true,
+    "API": {
+        "HOST": "http://localhost:3000"
+    },
+    "SESSION": {
+        "KEY": "session_token"
+    }
+}
