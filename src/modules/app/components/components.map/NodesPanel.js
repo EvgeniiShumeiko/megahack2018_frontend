@@ -28,14 +28,6 @@ class Node extends Component {
 }
 
 export class NodesPanel extends React.Component {
-    static propTypes = {
-        selectedNode: PropTypes.object,
-        canUndo: PropTypes.bool.isRequired,
-        canRedo: PropTypes.bool.isRequired,
-        onUndo: PropTypes.func.isRequired,
-        onRedo: PropTypes.func.isRequired,
-    };
-
     render() {
         const { selectedNode, onUndo, onRedo, canUndo, canRedo } = this.props;
         return (

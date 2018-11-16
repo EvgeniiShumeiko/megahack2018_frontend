@@ -46,7 +46,7 @@ export class ConnectionNodeWidget extends Component {
 
       return (
           <div className='basic-node' style={style}>
-              <div className='clickable-zone' onClick={this.clickHandler.bind(this)}>
+              <div className='clickable-zone'>
                   <div>
                       <header>
                           <div className='name'>
