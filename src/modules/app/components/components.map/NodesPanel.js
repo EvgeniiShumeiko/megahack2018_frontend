@@ -8,9 +8,7 @@ class Node extends Component {
         const { type, color } = this.props;
 
         if (type === 'connection') {
-            return <ConnectionNodeWidget node={
-                {position: {title: 'Connection Node', subtitle: 'node' }, name: {short: 'Surname', full: 'Name Surname'}}
-            } color={color} displayOnly />;
+            return <ConnectionNodeWidget node={{name: 'Untitled'}} color={color} displayOnly />;
         }
         console.warn('Unknown node type');
         return null;
