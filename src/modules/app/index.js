@@ -10,7 +10,8 @@ import { render } from 'react-dom';
 import { Container, Layout } from '@core/components';
 
 import * as effects from './store/effects';
-import { RootRoute, DiagramDemo } from './routes';
+import { RootRoute } from './routes';
+import Board from './routes/MapRoute/index'
 import { store, history } from './store';
 
 @withRouter
@@ -23,10 +24,10 @@ export class App extends Component {
             link: '/',
             title: 'RootRoute',
         },{
-            component: DiagramDemo,
+            component: Board,
             exact: false,
-            link: '/map',
-            title: 'DiagramDemo',
+            link: '/board',
+            title: 'Board',
         }],
     };
 

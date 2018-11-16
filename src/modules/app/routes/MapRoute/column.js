@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import Column from './column';
+import PropTypes from 'prop-types';
 
 // fake data generator
-const getColumns = (count, offset = 0) =>
+const getItems = (count, offset = 0) =>
     Array.from({ length: count }, (v, k) => k).map(k => ({
-        key: `column-${k + offset}`,
-        index: `column ${k + offset}`
+        id: `item-${k + offset}`,
+        content: `item ${k + offset}`
     }));
 
 // a little function to help us with reordering the result
@@ -56,9 +56,15 @@ const getListStyle = isDraggingOver => ({
     width: 250
 });
 
-export default class Board extends Component {
+export default class Column extends Component {
+    static propTypes = {
+        title: PropTypes.object.isRequired,
+        index: PropTypes.object.isRequired,
+    };
+
     state = {
-        columns: getColumns(3),
+        items: getItems(10),
+        selected: getItems(5, 10)
     };
 
     /**
@@ -113,33 +119,52 @@ export default class Board extends Component {
     // Normally you would want to split things out into separate components.
     // But in this example everything is just done in one place for simplicity
     render() {
-        const {columns} = this.state;
-
+        const { title, index } = this.props;
         return (
-            <DragDropContext onDragEnd={this.onDragEnd}>
-                <Droppable
-                    droppableId="board"
-                    type="COLUMN"
-                    direction="horizontal"
-                >
-                    {
-                        (provided, snapshot) => (
-                            <div
-                                className='time-line'
-                                ref={provided.innerRef}
-                                {...provided.droppableProps}>
-                                {columns.map((key, index) => (
-                                    <Column
-                                        key={key}
-                                        index={index}
-                                        title={key}
-                                    />
-                                ))}
-                            </div>
-                        )
-                    }
-                </Droppable>
-            </DragDropContext>
+            <Draggable draggableId={title} index={index}>
+                {(provided, snapshot) => (
+                    <div
+                        style={{display: 'inline-block', width: "300px", margin: "0 20px"}}
+                        ref={provided.innerRef} {...provided.draggableProps}
+                    >
+                        <div
+                            className='column-header'
+                            style={{height: '100px', background: "#000"}}
+                            {...provided.dragHandleProps}
+                        >
+
+                        </div>
+                        <Droppable droppableId="droppable">
+                            {(provided, snapshot) => (
+                                <div
+                                    ref={provided.innerRef}
+                                    style={getListStyle(snapshot.isDraggingOver)}>
+                                    {this.state.items.map((item, index) => (
+                                        <Draggable
+                                            key={item.id}
+                                            draggableId={item.id}
+                                            index={index}>
+                                            {(provided, snapshot) => (
+                                                <div
+                                                    ref={provided.innerRef}
+                                                    {...provided.draggableProps}
+                                                    {...provided.dragHandleProps}
+                                                    style={getItemStyle(
+                                                        snapshot.isDragging,
+                                                        provided.draggableProps.style
+                                                    )}>
+                                                    {item.content}
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+                    </div>
+                    )}
+            </Draggable>
         );
     }
 }
