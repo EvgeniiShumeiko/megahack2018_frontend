@@ -33,8 +33,7 @@
     "lodash": "^4.17.11",
     "prop-types": "^15.6.1",
     "react": "^16.6.0",
-    "react-dnd": "^2.2.4",
-    "react-dnd-html5-backend": "^2.2.4",
+    "react-beautiful-dnd": "^10.0.1",
     "react-dom": "^16.6.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
@@ -42,8 +41,7 @@
     "redux": "^4.0.0",
     "redux-act": "^1.7.4",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0",
-    "redux-undo": "^0.6.1"
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
