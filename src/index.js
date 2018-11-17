@@ -4,8 +4,9 @@ import { default as Chat } from "./modules/chat";
 import { default as Login } from "./modules/login";
 import { default as Mentor } from "./modules/Mentor";
 import axios from "axios";
+import environment from '@core/environment.json';
 
-const url = process.env.SERVER;
+const url = environment.API.HOST;
 
 axios
     .get(`${url}/account/role`, { headers: { authorization: localStorage.getItem("secretKey") } })
@@ -19,3 +20,5 @@ axios
         console.log("login");
         Login({ name: "Name ", email: "username@example.com" });
     });
+
+

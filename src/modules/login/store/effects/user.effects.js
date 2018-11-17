@@ -2,8 +2,8 @@
 import { setUserAction } from "@app/store/actions";
 import axios from "axios";
 
+const url = process.env.HOSTURL;
 
-const url = process.env.SERVER;
 export const setUser = user => dispatch => {
     dispatch(setUserAction(user));
 };
