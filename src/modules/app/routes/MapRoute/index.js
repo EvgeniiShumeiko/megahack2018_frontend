@@ -76,8 +76,10 @@ export default class Board extends Component {
             return;
         }
 
-        if (result.type === 'COLUMN')
+        if (result.type === 'COLUMN'){
+            this.setState({columns: reorder(columns, source.index, destination.index)});
             return;
+        }
 
         if (source.droppableId === destination.droppableId) {
             for (let i=0; i<columns.length; ++i)
