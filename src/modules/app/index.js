@@ -10,7 +10,7 @@ import { render } from 'react-dom';
 import { Container, Layout } from '@core/components';
 
 import * as effects from './store/effects';
-import { RootRoute, Register } from './routes';
+import { RootRoute, TaskExchange } from './routes';
 import { store, history } from './store';
 
 @withRouter
@@ -23,15 +23,10 @@ export class App extends Component {
             link: '/',
             title: 'RootRoute',
         },{
-            component: Register,
-            exact: false,
-            link: '/register',
-            title: 'Регистрация',
-        },{
             component: TaskExchange,
             exact: false,
-            link: '/register',
-            title: 'Регистрация',
+            link: '/taskExchange',
+            title: 'Биржа задач',
         }],
     };
 

@@ -6,7 +6,7 @@ import { DisptachProps } from '@core/props';
 import style from './style.styl';
 
 @connect(({ user }) => ({ user }))
-export default class TaskExchange extends Component {
+export default class SmallTask extends Component {
     static propTypes = {
         ...DisptachProps,
         user: PropTypes.object.isRequired,
@@ -15,8 +15,8 @@ export default class TaskExchange extends Component {
     render() {
         const { user } = this.props;
 
-        return <div>
-            taskExchange
+        return <div className={style.smallTaskContainer}>
+
         </div>;
     }
 }
