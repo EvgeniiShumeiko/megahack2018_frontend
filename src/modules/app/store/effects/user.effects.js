@@ -13,6 +13,6 @@ export const setUser = user => dispatch => {
 };
 
 export const getExchangeTask = () => axios.get(url + '/task/free', { headers: { authorization: localStorage.getItem('secretKey') }})
-        .then(res => console.log(res.data));
+        .then(res => res.data);
 
 

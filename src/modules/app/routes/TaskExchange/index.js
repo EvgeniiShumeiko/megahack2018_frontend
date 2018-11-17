@@ -7,6 +7,7 @@ import './style.styl';
 import {SmallTask} from "./smallTask";
 import Header from "../Header";
 import {getExchangeTask} from "../../store/effects";
+import moment from "moment";
 
 @connect(({ user }) => ({ user }))
 export default class TaskExchange extends Component {
@@ -22,7 +23,14 @@ export default class TaskExchange extends Component {
     };
 
     componentWillMount() {
-        getExchangeTask().then(res => console.log(res));
+        getExchangeTask().then(res => this.setState({tasks: res.map(task => {
+            return {
+                title: task.label,
+                price: task.price,
+                reporter: task.reporter.surname + ' ' + task.reporter.name[0] + '.',
+                date: moment(task.deadLine).diff(task.created, 'days'),
+            }
+            })}));
     }
 
     render() {
@@ -39,7 +47,8 @@ export default class TaskExchange extends Component {
                 <div className={'hr'}/>
                 <div className={'taskExchangeContainer'}>
                     <div className={'smallTaskTable'}>
-                        <SmallTask title={''} price={''} reporter={''} date={''}/>
+                        {this.state.tasks.map(task =>
+                        <SmallTask title={task.title} price={task.price} reporter={task.reporter} date={task.date}/>)}
                     </div>
                 </div>
             </div>

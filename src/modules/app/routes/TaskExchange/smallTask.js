@@ -19,6 +19,9 @@ export class SmallTask extends Component {
 
     render() {
         const { user } = this.props;
+        const { title, price, reporter, date} = this.props;
+
+
 
         return (
         <div className={'smallTaskContainer'}>
@@ -27,13 +30,13 @@ export class SmallTask extends Component {
             </div>
             <div className={'smallTaskMeta'}>
                 <div className={'smallTaskTitle'}>
-                    <label>Верстка сайта аренды кранов</label>
-                    <label className={'smallTaskPrice'}>100 000 ₽</label>
+                    <label>{title}</label>
+                    <label className={'smallTaskPrice'}>{price} ₽</label>
                 </div>
                 <div className={'smallTaskHr'}/>
                 <div className={'smallTaskTitle'}>
-                    <div className={'smallTaskBio'}><img src={human} height={'40px'}/><label>Морозова</label></div>
-                    <div className={'smallTaskBio'}><img src={calendar} height={'40px'}/><label>7 дней</label></div>
+                    <div className={'smallTaskBio'}><img src={human} height={'40px'}/><label>{reporter}</label></div>
+                    <div className={'smallTaskBio'}><img src={calendar} height={'40px'}/><label>{date} дней</label></div>
                     <button className={'smallTaskButton'}>Смотреть</button>
                 </div>
             </div>
