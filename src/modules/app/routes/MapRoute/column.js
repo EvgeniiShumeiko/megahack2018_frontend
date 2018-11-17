@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import PropTypes from 'prop-types';
+import TasksTypesModal from '@core/components/components.board/modal/task.js'
 
 import './style.styl'
+import TaskExchange from "../TaskExchange";
 
 const grid = 8;
 
@@ -32,9 +34,14 @@ export default class Column extends Component {
         items: PropTypes.object.isRequired,
     };
 
+    state = {
+        showModal: false
+    };
+
     render() {
         const { title, index, items } = this.props;
-        console.log(title, index, 'items=', items);
+        const { showModal } = this.state;
+
         return (
             <Draggable draggableId={title.index} index={index} key={title.key}>
                 {(provided, snapshot) => (
@@ -47,11 +54,8 @@ export default class Column extends Component {
                             {...provided.dragHandleProps}
                             style={{height: '100px', background: "#000"}}
                         >
-                            <div className='column-tags'>
-                                <span className='skill' onClick={}></span>
-                                <span className='skill'></span>
-                                <span className='skill'></span>
-                                <span className='skill'></span>
+                            <div className='column-tags' onClick={() => this.setState({showModal: !showModal})}>
+                                {!showModal && <TasksTypesModal/>}
                             </div>
                         </div>
                         <Droppable droppableId={title.key}>
