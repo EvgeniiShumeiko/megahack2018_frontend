@@ -3,7 +3,7 @@ import { default as Chat } from './modules/chat'
 import { default as Login } from "./modules/login";
 import axios from 'axios';
 
-const url = 'http://10.155.57.152:8080';
+const url = 'https://78e6f559.ngrok.io';
 
 console.log(window.location.pathname)
 
