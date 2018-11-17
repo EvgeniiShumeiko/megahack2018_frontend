@@ -10,8 +10,8 @@ import { render } from 'react-dom';
 import { Container, Layout } from '@core/components';
 
 import * as effects from './store/effects';
-import { RootRoute } from './routes';
-import Board from './routes/MapRoute/index'
+import Board from './routes/MapRoute/index';
+import { RootRoute, TaskExchange } from './routes';
 import { store, history } from './store';
 
 @withRouter
@@ -24,12 +24,16 @@ export class App extends Component {
             link: '/',
             title: 'RootRoute',
         },{
-                component: Board,
-                exact: false,
-                link: '/board',
-                title: 'Board',
-        }
-        ],
+            component: Board,
+            exact: false,
+            link: '/board',
+            title: 'Board',
+        },{
+            component: TaskExchange,
+            exact: false,
+            link: '/taskExchange',
+            title: 'Биржа задач',
+        }],
     };
 
     render() {
