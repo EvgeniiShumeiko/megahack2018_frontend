@@ -25,5 +25,3 @@ axios
         console.log("login");
         Login({ name: "Name ", email: "username@example.com" });
     });
-
-
