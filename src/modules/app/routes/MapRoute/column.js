@@ -90,10 +90,10 @@ export default class Column extends Component {
                                         columnId={index}
                                     />}
                                     {
-                                        skills.filter(item => item).map((item, index) =>
-                                            <span key={`skill-${title.id}-${index}`} className='active-skill'>
+                                        skills.map((item, index) => { if (item)
+                                            return <span key={`skill-${title.id}-${index}`} className='active-skill'>
                                                 <img src={skillsIcons[index]}/>
-                                            </span>)
+                                            </span>})
                                     }
                             </div>
                             <div className='add-items' onClick={() => addItems(title.id)}>

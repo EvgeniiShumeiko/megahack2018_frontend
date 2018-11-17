@@ -23,18 +23,17 @@ export default class TaskTypeModal extends Component {
     };
 
     confirmHandler(){
-        const { date, skills } = this.state;
-        console.log('date', date);
+        const { date, skills } = this.state;=
         this.props.showModal();
         this.props.date(date);
         this.props.choosedTypes(skills);
     }
 
     addRemoveSkill = event => {
-        console.log(event.target.id.slice(4, 5));
         const { skills } = this.state;
-        skills[parseInt(event.target.id.slice(4, 5))] = event.target.value;
+        skills[parseInt(event.target.id.slice(4, 5))] = event.target.checked;
         this.setState({skills});
+        console.log('skills', this.state.skills);
         this.forceUpdate();
     };
 
