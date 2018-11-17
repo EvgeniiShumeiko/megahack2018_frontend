@@ -28,13 +28,16 @@
     "babel-core": "7.0.0-bridge.0"
   },
   "dependencies": {
+    "@andyet/simplewebrtc": "^1.7.4",
     "axios": "^0.18.0",
+    "css-box-model": "latest",
     "emotion": "^9.2.12",
     "history": "^4.7.2",
     "lodash": "^4.17.11",
     "prop-types": "^15.6.1",
     "react": "^16.6.3",
     "react-beautiful-dnd": "^10.0.1",
+    "react-contenteditable": "^3.2.0",
     "react-dom": "^16.6.3",
     "react-redux": "^5.1.1",
     "react-router-dom": "^4.2.2",
@@ -43,7 +46,7 @@
     "redux-act": "^1.7.4",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "css-box-model": "latest"
+    "uuid": "latest"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",

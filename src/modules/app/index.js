@@ -10,8 +10,7 @@ import { render } from 'react-dom';
 import { Container, Layout } from '@core/components';
 
 import * as effects from './store/effects';
-import Board from './routes/MapRoute/index';
-import { RootRoute, TaskExchange } from './routes';
+import { RootRoute, TaskExchange, Board, ChatRoute } from './routes';
 import { store, history } from './store';
 
 @withRouter
@@ -60,6 +59,7 @@ export default function(user = {}) {
         effects.setUser(user),
     );
 
+    window.store = store;
     render(
         <Provider store={store}>
             <ConnectedRouter history={history}>

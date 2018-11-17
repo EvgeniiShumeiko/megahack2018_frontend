@@ -47,11 +47,12 @@ export default class Column extends Component {
                             {...provided.dragHandleProps}
                             style={{height: '100px', background: "#000"}}
                         >
-                        </div>
-                        <div className='column-tags'>
-                            <span className='skill'></span>
-                            <span className='skill'></span>
-                            <span className='skill'></span>
+                            <div className='column-tags'>
+                                <span className='skill'></span>
+                                <span className='skill'></span>
+                                <span className='skill'></span>
+                                <span className='skill'></span>
+                            </div>
                         </div>
                         <Droppable droppableId={title.key}>
                             {(provided, snapshot) => (
