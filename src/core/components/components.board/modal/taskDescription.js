@@ -26,7 +26,7 @@ export default class TaskDescription extends Component {
     }
 
     render(){
-        const { id, content, header, removeItem, changeShowModal } = this.props;
+        const { id, content, header, removeItem, changeShowModal, changeContent, changeHeader } = this.props;
         const { changingInfo, newContent, newHeader } = this.state;
 
         console.log('canChange', changingInfo);
@@ -49,7 +49,14 @@ export default class TaskDescription extends Component {
                         }
                     </div>
                     {changingInfo
-                        ?<div className='submit-changes bottom-btn' onClick={this.submitChanges}>Submit changes</div>
+                        ?<div className='submit-changes bottom-btn'
+                              onClick={() => {
+                                  changeContent(newContent, id);
+                                  changeHeader(newHeader, id);
+                              }
+                         }>
+                            Submit changes
+                        </div>
                         :<div className='create-changes bottom-btn' onClick={this.setState({changingInfo: !changingInfo})}>Change</div>
                     }
                     <div className='complete-task-btn bottom-btn' onClick={() => removeItem(id)}>

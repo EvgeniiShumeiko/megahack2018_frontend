@@ -23,7 +23,7 @@ export default class TaskTypeModal extends Component {
     };
 
     confirmHandler(){
-        const { date, skills } = this.state;=
+        const { date, skills } = this.state;
         this.props.showModal();
         this.props.date(date);
         this.props.choosedTypes(skills);
