@@ -3,7 +3,11 @@ import {
 } from '@app/store/actions';
 import axios from 'axios';
 import moment from 'moment';
-import url from '../../index';
+
+import environment from '@core/environment.json';
+
+const url = environment.API.HOST
+
 
 export const setUser = user => dispatch => {
     dispatch(
