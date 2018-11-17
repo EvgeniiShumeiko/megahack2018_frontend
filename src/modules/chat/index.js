@@ -1,3 +1,4 @@
+// @flow
 import { Provider } from "react-redux";
 import * as UUID from "uuid";
 import React from "react";
@@ -7,59 +8,24 @@ import { createStore, Actions, Selectors } from "@andyet/simplewebrtc";
 
 import App from "./ChatRoute";
 
-
-export default function () {
-
-// ====================================================================
-// IMPORTANT SETUP
-// ====================================================================
-// Replace `YOUR_API_KEY` here with the API key you received when
-// signing up for SimpleWebRTC
-// --------------------------------------------------------------------
-    const API_KEY = '7fd4b5f256a05e4d653f08e1';
-// ====================================================================
-
-
-    const CONFIG_URL = `https://api.simplewebrtc.com/config/guest/${API_KEY}`
-
-
-// The provided `createStore` function makes a basic Redux
-// store useful for getting things started. If you want to
-// make your own, import `reducer` from '@andyet/simplewebrtc' and
-// be sure to assign it to `simplewebrtc` in the top level of
-// your state object.
+export default function() {
+    const API_KEY = "7fd4b5f256a05e4d653f08e1";
+    const CONFIG_URL = `https://api.simplewebrtc.com/config/guest/${API_KEY}`;
     const store = createStore();
 
-// We're exposing these here to make it easier for experimenting
-// with the actions and selectors in the console.
-//
-// This is NOT required for SimpleWebRTC to function.
     window.store = store;
     window.actions = Actions;
     window.selectors = Selectors;
 
     const params = new URLSearchParams(window.location.search);
 
-    if (!params.get('room')) {
-        // We're using a UUID for a random room name here, but that is
-        // NOT a requirement for SimpleWebRTC to function.
+    if (!params.get("room")) {
         window.location = `/chat/?room=${UUID.v4()}`;
     }
-
-    if (API_KEY === 'YOUR_API_KEY') {
-        ReactDOM.render((
-            <p>You need to configure the app with your API key. See <code>src/index.js</code></p>
-        ), document.getElementById("root"))
-    } else {
-        ReactDOM.render(
-            <Provider store={store}>
-                <App
-                    configUrl={CONFIG_URL}
-                    roomName={params.get('room')}
-                    roomPassword={params.get('key') || ''}
-                />
-            </Provider>,
-            document.getElementById("root")
-        );
-    }
+    ReactDOM.render(
+        <Provider store={store}>
+            <App configUrl={CONFIG_URL} roomName={params.get("room")} roomPassword={params.get("key") || ""} />
+        </Provider>,
+        document.getElementById("root")
+    );
 }

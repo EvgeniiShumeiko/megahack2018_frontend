@@ -5,10 +5,16 @@ import axios from 'axios';
 
 const url = 'http://10.155.57.152:8080';
 
+console.log(window.location.pathname)
+
 axios.get(url + '/account/info', { headers: { authorization: localStorage.getItem('secretKey') }})
     .then((res) => {
         console.log(res);
-        App({ name: 'Example Name ', email: 'username@example.com'})
+
+        if(window.location.pathname.indexOf('chat') === -1)
+            App({ name: 'Example Name ', email: 'username@example.com'});
+        else
+            Chat();
     })
     .catch(() => {
         console.log('login');
