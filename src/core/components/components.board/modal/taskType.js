@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import communicationClient from '@assets/communication_client.svg';
+import communicationMentor from '@assets/communication_mentor.svg';
+import finish from '@assets/finish.svg';
+import percent from '@assets/percent.svg';
+
 import './style.styl'
 
 export default class TaskTypeModal extends Component {
@@ -14,6 +19,7 @@ export default class TaskTypeModal extends Component {
     state = {
         date: '',
         skills: [false, false, false, false],
+        skillsIcons: [percent, communicationMentor, communicationClient, finish]
     };
 
     confirmHandler(){
@@ -28,11 +34,12 @@ export default class TaskTypeModal extends Component {
         console.log(event.target.id.slice(4, 5));
         const { skills } = this.state;
         skills[parseInt(event.target.id.slice(4, 5))] = event.target.value;
+        this.setState({skills});
         this.forceUpdate();
     };
 
     render(){
-        const { skills } = this.state;
+        const { skills, skillsIcons } = this.state;
         console.log(this.state.date);
         return(
             <div className='task-type-modal'>
@@ -40,17 +47,18 @@ export default class TaskTypeModal extends Component {
                 <input type='checkbox' id={`type1 ${this.props.columnId}`} onChange={this.addRemoveSkill}/>
                 <input type='checkbox' id={`type2 ${this.props.columnId}`} onChange={this.addRemoveSkill}/>
                 <input type='checkbox' id={`type3 ${this.props.columnId}`} onChange={this.addRemoveSkill}/>
+                <div className='task-date'>
+                    <input type='date' onChange={event => this.setState({date: event.target.value})}/>
+                </div>
                 <div className='types-icons'>
                     {skills.map((skill, index) => {
                         console.log(skill);
                         return <label htmlFor={`type${index} ${this.props.columnId}`}>
-                            <span className='task-type-icon'
-                                  style={skill ? {background: 'rgba(0, 0, 0, .1)'} : {}}></span>
+                            <span className='task-type-icon'>
+                                <img src={skillsIcons[index]} style={skill ? {background: 'rgba(0, 0, 0, .1)'} : {}}/>
+                            </span>
                         </label>
                     })}
-                </div>
-                <div className='task-date'>
-                    <input type='date' onChange={event => this.setState({date: event.target.value})}/>
                 </div>
                 <div className='accept-tasktype-btn' onClick={this.confirmHandler.bind(this)}>
                     ОК

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Column from './column';
 import TaskDescription from '@core/components/components.board/modal/taskDescription.js'
+import Header from '../Header'
 
 // fake data generator
 const getColumns = (count, offset = 0) =>
@@ -9,11 +10,7 @@ const getColumns = (count, offset = 0) =>
         key: `column-${k + offset}`,
         index: `column ${k + offset}`,
         id: k,
-        items:  Array.from({ length: 10 }, (v, j) => j).map(i => ({
-            id: `item-${i + offset}-${k}`,
-            header: `header ${i + offset}`,
-            content: `item ${i + offset}`,
-        }))
+        items: []
     }));
 
 // a little function to help us with reordering the result
@@ -115,8 +112,8 @@ export default class Board extends Component {
                 id={currentItem.id}
                 content={currentItem.content}
                 header={currentItem.header}
-                changeContent={this.changeContent}
-                changeHeader={this.changeHeader}
+                changeContent={this.changeContent.bind(this)}
+                changeHeader={this.changeHeader.bind(this)}
                 removeItem={this.removeItem}
                 changeShowModal={this.changeShowModalTask}
             />)
@@ -165,6 +162,11 @@ export default class Board extends Component {
         console.log(items);
         return (
             <div>
+                <Header/>
+                <div className='title'>
+                    Ход работы
+                </div>
+                <div className='hr'></div>
                 {showTaskModal && this.showModal(showModalTaskId)}
                 <DragDropContext onDragEnd={this.onDragEnd}>
                     <Droppable
@@ -172,6 +174,7 @@ export default class Board extends Component {
                         type="COLUMN"
                         direction="horizontal"
                         isCombineEnabled={true}
+                        style={{width: '90%', margin: 'auto'}}
                     >
                         {
                             (provided, snapshot) => (
@@ -179,6 +182,7 @@ export default class Board extends Component {
                                     className='time-line'
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}>
+                                    <div className='background-line'></div>
                                     {columns.map((key, index, id, items) => {
                                         return(
                                         <Column

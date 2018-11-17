@@ -3,6 +3,11 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import PropTypes from 'prop-types';
 import TasksTypesModal from '@core/components/components.board/modal/taskType.js'
 
+import communicationClient from '@assets/communication_client.svg';
+import communicationMentor from '@assets/communication_mentor.svg';
+import finish from '@assets/finish.svg';
+import percent from '@assets/percent.svg';
+
 import './style.styl'
 import TaskExchange from "../TaskExchange";
 
@@ -21,10 +26,11 @@ const getItemStyle = (isDragging, draggableStyle) => ({
     ...draggableStyle
 });
 
-const getListStyle = isDraggingOver => ({
+const getListStyle = (isDraggingOver, overStyles) => ({
     background: isDraggingOver ? 'lightblue' : 'lightgrey',
     padding: grid,
-    width: 250
+    width: 250,
+    ...overStyles
 });
 
 export default class Column extends Component {
@@ -40,6 +46,7 @@ export default class Column extends Component {
         showModal: true,
         skills: [],
         date: '',
+        skillsIcons: [percent, communicationMentor, communicationClient, finish]
     };
 
     changeShowModalState = () => {
@@ -59,7 +66,7 @@ export default class Column extends Component {
 
     render() {
         const { title, index, items, addItems, showTaskModal } = this.props;
-        const { showModal, skills, date } = this.state;
+        const { showModal, skills, date, skillsIcons } = this.state;
 
         //console.log(this.props);
 
@@ -85,18 +92,19 @@ export default class Column extends Component {
                                     {
                                         skills.filter(item => item).map((item, index) =>
                                             <span key={`skill-${title.id}-${index}`} className='active-skill'>
+                                                <img src={skillsIcons[index]}/>
                                             </span>)
                                     }
                             </div>
                             <div className='add-items' onClick={() => addItems(title.id)}>
-                                +
+                                + Добавить карточку
                             </div>
                         </div>
                         <Droppable droppableId={title.key}>
                             {(provided, snapshot) => (
                                 <div
                                     ref={provided.innerRef}
-                                    style={getListStyle(snapshot.isDraggingOver)}>
+                                    style={getListStyle(snapshot.isDraggingOver, title.items > 0? {} : {background: '#fff'})}>
                                     {title.items.map((item, index) => (
                                         <Draggable
                                             key={`${this.props.index}${item.id}`}

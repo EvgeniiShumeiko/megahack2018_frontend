@@ -1,8 +1,11 @@
 .task-type-modal
     position absolute
-    margin auto
-    background beige
-    width 244px
+    margin 130px 0 0 52px
+    background #fff
+    -webkit-box-shadow 3px 4px 14px 0 rgba(0,0,0, .75)
+    -moz-box-shadow 3px 4px 14px 0 rgba(0,0,0, .75)
+    box-shadow 3px 4px 14px 0 rgba(0,0,0, .75)
+    width 154px
     z-index 100
     display block
     cursor default
@@ -24,11 +27,16 @@ input[type='checkbox']
     border-radius 50%
     display block
 
-.task-type-icon:hover
+.task-type-icon > img
+    height 50px
+    width 50px
+    margin 0
+
+.task-type-icon > img:hover
     background rgba(0,0, 0, .1)
 
 .task-date
-    width 50%
+    width 114px
     margin auto
 
 .accept-tasktype-btn
