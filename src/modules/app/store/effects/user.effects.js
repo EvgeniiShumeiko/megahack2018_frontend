@@ -8,7 +8,6 @@ import environment from '@core/environment.json';
 
 const url = environment.API.HOST
 
-
 export const setUser = user => dispatch => {
     dispatch(
         setUserAction(user),
