@@ -1,7 +1,7 @@
 {
     "DEBUG": true,
     "API": {
-        "HOST": "http://10.155.62.243:8080"
+        "HOST": "http://94a46a22.ngrok.io"
     },
     "SESSION": {
         "KEY": "session_token"
