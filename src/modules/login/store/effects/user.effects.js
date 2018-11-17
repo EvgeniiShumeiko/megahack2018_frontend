@@ -3,7 +3,7 @@ import { setUserAction } from "@app/store/actions";
 import axios from "axios";
 
 
-const url = process.env.SERVER;
+const url = 'https://4c8e7c34.ngrok.io';
 export const setUser = user => dispatch => {
     dispatch(setUserAction(user));
 };

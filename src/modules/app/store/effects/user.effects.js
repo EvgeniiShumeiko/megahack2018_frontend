@@ -3,7 +3,8 @@ import {
 } from '@app/store/actions';
 import axios from 'axios';
 import moment from 'moment';
-import url from '../../index';
+
+const url = 'https://4c8e7c34.ngrok.io';
 
 export const setUser = user => dispatch => {
     dispatch(
