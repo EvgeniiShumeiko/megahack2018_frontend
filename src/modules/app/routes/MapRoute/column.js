@@ -35,7 +35,18 @@ export default class Column extends Component {
     };
 
     state = {
-        showModal: false
+        showModal: false,
+        skills: [],
+    };
+
+    changeShowModalState = () => {
+        const { showModal } = this.state;
+        console.log('change modal state');
+        this.setState({showModal: !showModal});
+    };
+
+    updateSkills = skills => {
+        this.setState({skills})
     };
 
     render() {
@@ -54,8 +65,8 @@ export default class Column extends Component {
                             {...provided.dragHandleProps}
                             style={{height: '100px', background: "#000"}}
                         >
-                            <div className='column-tags' onClick={() => this.setState({showModal: !showModal})}>
-                                {!showModal && <TasksTypesModal/>}
+                            <div className='column-tags' onClick={() => {if (showModal) this.changeShowModalState()}}>
+                                {!showModal && <TasksTypesModal showModal={this.changeShowModalState} date={{}} choosedTypes={{}} columnId={index}/>}
                             </div>
                         </div>
                         <Droppable droppableId={title.key}>
