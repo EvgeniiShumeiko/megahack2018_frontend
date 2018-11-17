@@ -49,6 +49,9 @@ export default class Board extends Component {
     constructor(){
         super();
         this.removeItem = this.removeItem.bind(this);
+        this.showModal = this.showModal.bind(this);
+        this.changeHeader = this.changeHeader.bind(this);
+        this.changeContent = this.changeContent.bind(this);
     }
 
     addItems = (columnId) => {
@@ -63,21 +66,10 @@ export default class Board extends Component {
     };
 
     changeHeader = (newHeader, itemId) => {
-        const { columns } = this.state;
-        columns.forEach(column => column.items.forEach(
+        this.state.columns.forEach(column => column.items.forEach(
             item => {
                 if (item.id === itemId)
                     item.header = newHeader;
-            }
-        ))
-    };
-
-    changeContent = (newContent, itemId) => {
-        const { columns } = this.state;
-        columns.forEach(column => column.items.forEach(
-            item => {
-                if (item.id === itemId)
-                    item.content = newContent;
             }
         ))
     };
@@ -91,6 +83,15 @@ export default class Board extends Component {
             result[i].items = result[i].items.filter(item => item.id !== itemId)
         console.log(result);
         this.setState({columns: result});
+    };
+
+    changeContent = (newContent, itemId) => {
+        this.state.columns.forEach(column => column.items.forEach(
+            item => {
+                if (item.id === itemId)
+                    item.content = newContent;
+            }
+        ))
     };
 
     changeShowModalTask = itemId => {
@@ -112,8 +113,8 @@ export default class Board extends Component {
                 id={currentItem.id}
                 content={currentItem.content}
                 header={currentItem.header}
-                changeContent={this.changeContent.bind(this)}
-                changeHeader={this.changeHeader.bind(this)}
+                changeContent={this.changeContent}
+                changeHeader={this.changeHeader}
                 removeItem={this.removeItem}
                 changeShowModal={this.changeShowModalTask}
             />)

@@ -20,7 +20,10 @@ const getItemStyle = (isDragging, draggableStyle) => ({
     margin: `0 0 ${grid}px 0`,
 
     // change background colour if dragging
-    background: isDragging ? 'lightgreen' : 'grey',
+    background: isDragging ? 'lightgreen' : '#fff',
+    border: '2px solid #3878e0',
+    borderRadius: '5%',
+    zIndex: '200',
 
     // styles we need to apply on draggables
     ...draggableStyle
@@ -90,10 +93,10 @@ export default class Column extends Component {
                                         columnId={index}
                                     />}
                                     {
-                                        skills.filter(item => item).map((item, index) =>
-                                            <span key={`skill-${title.id}-${index}`} className='active-skill'>
+                                        skills.map((item, index) => { if (item)
+                                            return <span key={`skill-${title.id}-${index}`} className='active-skill'>
                                                 <img src={skillsIcons[index]}/>
-                                            </span>)
+                                            </span>})
                                     }
                             </div>
                             <div className='add-items' onClick={() => addItems(title.id)}>

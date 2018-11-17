@@ -13,7 +13,7 @@ axios
         console.log(res);
         console.log(url);
         if (window.location.pathname.indexOf("chat") === -1) {
-            if (res.data === "developer")
+            if (res.data === "developer")//
                 App({ name: "Example Name ", email: "username@example.com" })
             else if (res.data === "reporter")
                 Mentor({ name: "Example Name ", email: "username@example.com" })
