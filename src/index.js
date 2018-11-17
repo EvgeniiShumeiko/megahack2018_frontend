@@ -1,4 +1,5 @@
 import { default as App } from '@app';
+import { default as Chat } from './modules/chat'
 import { default as Login } from "./modules/login";
 import axios from 'axios';
 
