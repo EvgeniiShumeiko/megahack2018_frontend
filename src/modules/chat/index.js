@@ -1,65 +1,53 @@
+// @flow
 import { Provider } from "react-redux";
-import * as UUID from "uuid";
 import React from "react";
 import ReactDOM from "react-dom";
+import axios from "axios";
 
 import { createStore, Actions, Selectors } from "@andyet/simplewebrtc";
 
 import App from "./ChatRoute";
 
+export default function(res) {
+    const API_KEY = "7fd4b5f256a05e4d653f08e1";
+    const CONFIG_URL = `https://api.simplewebrtc.com/config/guest/${API_KEY}`;
 
-export default function () {
-
-// ====================================================================
-// IMPORTANT SETUP
-// ====================================================================
-// Replace `YOUR_API_KEY` here with the API key you received when
-// signing up for SimpleWebRTC
-// --------------------------------------------------------------------
-    const API_KEY = '7fd4b5f256a05e4d653f08e1';
-// ====================================================================
-
-
-    const CONFIG_URL = `https://api.simplewebrtc.com/config/guest/${API_KEY}`
-
-
-// The provided `createStore` function makes a basic Redux
-// store useful for getting things started. If you want to
-// make your own, import `reducer` from '@andyet/simplewebrtc' and
-// be sure to assign it to `simplewebrtc` in the top level of
-// your state object.
     const store = createStore();
+    sessionStorage.setItem("user", JSON.stringify(res.data));
 
-// We're exposing these here to make it easier for experimenting
-// with the actions and selectors in the console.
-//
-// This is NOT required for SimpleWebRTC to function.
     window.store = store;
     window.actions = Actions;
     window.selectors = Selectors;
 
     const params = new URLSearchParams(window.location.search);
-
-    if (!params.get('room')) {
-        // We're using a UUID for a random room name here, but that is
-        // NOT a requirement for SimpleWebRTC to function.
-        window.location = `/chat/?room=${UUID.v4()}`;
+    const room = params.get("room");
+    if (!params.get("room")) {
+        window.location = `/chat/?room=chat_for_all`;
     }
-
-    if (API_KEY === 'YOUR_API_KEY') {
-        ReactDOM.render((
-            <p>You need to configure the app with your API key. See <code>src/index.js</code></p>
-        ), document.getElementById("root"))
+    store.dispatch(Actions.setDisplayName(res.data.login));
+    const users = room.split("_");
+    console.log(store.getState())
+    if (users.indexOf(res.data.login) === -1 && room !== "chat_for_all") {
+        ReactDOM.render(<h1>Вы не учавствуете в этом чате</h1>, document.getElementById("root"));
     } else {
-        ReactDOM.render(
-            <Provider store={store}>
-                <App
-                    configUrl={CONFIG_URL}
-                    roomName={params.get('room')}
-                    roomPassword={params.get('key') || ''}
-                />
-            </Provider>,
-            document.getElementById("root")
-        );
+        const url = "http://10.155.62.243:8080";
+        const forUser = users.filter(x => x !== res.data.login);
+        axios
+            .get(`${url}/account/exists/${forUser[0]}`, { headers: { authorization: localStorage.getItem("secretKey") } })
+            .then(response => {
+                if ((response.data && users[0] !== users[1]) || room === "chat_for_all") {
+                    ReactDOM.render(
+                        <Provider store={store}>
+                            <App configUrl={CONFIG_URL} roomName={room} userData={res.data} roomPassword={params.get("key") || ""} />
+                        </Provider>,
+                        document.getElementById("root")
+                    );
+                } else {
+                    ReactDOM.render(<h1>Чата не существует</h1>, document.getElementById("root"));
+                }
+            })
+            .catch(() => {
+                ReactDOM.render(<h1>Чата не существует</h1>, document.getElementById("root"));
+            });
     }
 }
