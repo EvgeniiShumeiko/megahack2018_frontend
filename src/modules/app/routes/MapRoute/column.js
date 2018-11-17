@@ -48,7 +48,7 @@ export default class Column extends Component {
                             style={{height: '100px', background: "#000"}}
                         >
                             <div className='column-tags'>
-                                <span className='skill'></span>
+                                <span className='skill' onClick={}></span>
                                 <span className='skill'></span>
                                 <span className='skill'></span>
                                 <span className='skill'></span>

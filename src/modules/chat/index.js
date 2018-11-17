@@ -43,7 +43,7 @@ export default function () {
     if (!params.get('room')) {
         // We're using a UUID for a random room name here, but that is
         // NOT a requirement for SimpleWebRTC to function.
-        window.location = `/?room=${UUID.v4()}`;
+        window.location = `/chat/?room=${UUID.v4()}`;
     }
 
     if (API_KEY === 'YOUR_API_KEY') {

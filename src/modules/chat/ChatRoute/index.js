@@ -108,7 +108,7 @@ const App = ({ configUrl, userData, roomName, roomPassword }) => (
                                         if (peers.length === 0) {
                                             return null;
                                         }
-                                        return <span></span>
+                                        return (<span> ({peers.length} speaking)</span>);
                                     }} />
                                 </div>
                                 <div>
