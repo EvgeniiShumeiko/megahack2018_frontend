@@ -1,5 +1,6 @@
-import React from 'react';
-import ContentEditable from 'react-contenteditable';
+// @flow
+import React from "react";
+import ContentEditable from "react-contenteditable";
 
 import {
     Provider,
@@ -18,7 +19,7 @@ import {
     ChatComposers,
     ChatList,
     ChatInput
-} from '@andyet/simplewebrtc';
+} from "@andyet/simplewebrtc";
 
 import {
     StyledUIContainer,
@@ -34,8 +35,7 @@ import {
     StyledMessageGroup,
     StyledMainContainer,
     StyledChatListContainer
-} from './Styles';
-
+} from "./Styles";
 
 const App = ({ configUrl, userData, roomName, roomPassword }) => (
     <Provider configUrl={configUrl} userData={userData}>
@@ -94,8 +94,8 @@ const App = ({ configUrl, userData, roomName, roomPassword }) => (
                         return <h1>Joining room...</h1>;
                     }
 
-                    const remoteVideos = remoteMedia.filter(m => m.kind === 'video');
-                    const localVideos = localMedia.filter(m => m.kind === 'video' && m.shared);
+                    const remoteVideos = remoteMedia.filter(m => m.kind === "video");
+                    const localVideos = localMedia.filter(m => m.kind === "video" && m.shared);
                     const localScreens = localVideos.filter(m => m.screenCapture);
 
                     return (
@@ -103,13 +103,19 @@ const App = ({ configUrl, userData, roomName, roomPassword }) => (
                             <StyledToolbar>
                                 <h1>{room.providedName}</h1>
                                 <div>
-                                    <span>{peers.length} Peer{peers.length !== 1 ? 's' : ''}</span>
-                                    <PeerList room={room.address} speaking render={({ peers }) => {
-                                        if (peers.length === 0) {
-                                            return null;
-                                        }
-                                        return (<span> ({peers.length} speaking)</span>);
-                                    }} />
+                                    <span>
+                                        {peers.length} Peer{peers.length !== 1 ? "s" : ""}
+                                    </span>
+                                    <PeerList
+                                        room={room.address}
+                                        speaking
+                                        render={({ peers }) => {
+                                            if (peers.length === 0) {
+                                                return null;
+                                            }
+                                            return <span> ({peers.length} speaking)</span>;
+                                        }}
+                                    />
                                 </div>
                                 <div>
                                     {/*
@@ -121,7 +127,7 @@ const App = ({ configUrl, userData, roomName, roomPassword }) => (
 
                     Screensharing in Chrome requires an extension to be installed.
                   */}
-                                    {!!!localScreens.length && <RequestDisplayMedia />}
+                                    {!localScreens.length && <RequestDisplayMedia />}
 
                                     {/*
                     The <StopSharingLocalMedia/> component will remove a media track from being
@@ -130,33 +136,31 @@ const App = ({ configUrl, userData, roomName, roomPassword }) => (
 
                     Including the `autoRemove` attribute will end the unshared media track.
                   */}
-                                    {!!localScreens.length && <MediaControls media={localScreens[0]} autoRemove render={({ stopSharing }) => (
-                                        <button onClick={stopSharing}>Stop Screenshare</button>
-                                    )} />}
+                                    {!!localScreens.length && (
+                                        <MediaControls media={localScreens[0]} autoRemove render={({ stopSharing }) => <button onClick={stopSharing}>Stop Screenshare</button>} />
+                                    )}
                                 </div>
-                                <UserControls render={({ user, isMuted, mute, unmute, pauseVideo, resumeVideo, isPaused, setDisplayName }) => (
-                                    <div>
-                                        {/* A very basic method for setting a display name */}
-                                        <ContentEditable
-                                            className='display-name-editor'
-                                            html={user.displayName}
-                                            onChange={(event) => {
-                                                setDisplayName(event.target.value.trim());
-                                            }}
-                                        />
-                                        <button onClick={() => isMuted ? unmute() : mute()}>{isMuted ? 'Unmute' : 'Mute'}</button>
-                                        <button onClick={() => isPaused ? resumeVideo() : pauseVideo()}>{isPaused ? 'Video On' : 'Video Off'}</button>
-                                    </div>
-                                )} />
+                                <UserControls
+                                    render={({isMuted, mute, unmute, pauseVideo, resumeVideo, isPaused, setDisplayName }) => (
+                                        <div>
+                                            {/* A very basic method for setting a display name */}
+                                            <ContentEditable
+                                                className="display-name-editor"
+                                                html={userData.name}
+                                                onChange={event => {
+                                                    setDisplayName(event.target.value.trim());
+                                                }}
+                                            />
+                                            <button onClick={() => (isMuted ? unmute() : mute())}>{isMuted ? "Unmute" : "Mute"}</button>
+                                            <button onClick={() => (isPaused ? resumeVideo() : pauseVideo())}>{isPaused ? "Video On" : "Video Off"}</button>
+                                        </div>
+                                    )}
+                                />
                             </StyledToolbar>
 
                             <StyledMainContainer>
                                 <StyledVideoContainer>
-                                    <GridLayout
-                                        className='videogrid'
-                                        items={[...localVideos, ...remoteVideos]}
-                                        renderCell={(item) => (<Video media={item} />)}
-                                    />
+                                    <GridLayout className="videogrid" items={[...localVideos, ...remoteVideos]} renderCell={item => <Video media={item} />} />
                                 </StyledVideoContainer>
 
                                 <StyledChatContainer>
@@ -181,7 +185,7 @@ const App = ({ configUrl, userData, roomName, roomPassword }) => (
                                         renderGroup={({ chats, peer }) => (
                                             <StyledMessageGroup key={chats[0].id}>
                                                 <StyledMessageMetadata>
-                                                    <StyledDisplayName>{peer.displayName ? peer.displayName : 'Anonymous'}</StyledDisplayName>{' '}
+                                                    <StyledDisplayName>{peer.displayName ? peer.displayName : "Anonymous"}</StyledDisplayName>{" "}
                                                     <StyledTimestamp>{chats[0].time.toLocaleTimeString()}</StyledTimestamp>
                                                 </StyledMessageMetadata>
                                                 {/*
@@ -202,10 +206,7 @@ const App = ({ configUrl, userData, roomName, roomPassword }) => (
 
                       It will also generate and send typing notifications to the room.
                     */}
-                                        <ChatInput
-                                            room={room.address}
-                                            placeholder='Send a message...'
-                                        />
+                                        <ChatInput room={room.address} placeholder="Send a message..." />
 
                                         {/*
                       The <ChatComposers/> component simply receives a list of peers actively
@@ -213,10 +214,8 @@ const App = ({ configUrl, userData, roomName, roomPassword }) => (
                       with a custom `render` function property.
                     */}
                                         <ChatComposers className={StyledTyping} room={room.address} />
-
                                     </StyledChatInputContainer>
                                 </StyledChatContainer>
-
                             </StyledMainContainer>
                         </StyledUIContainer>
                     );

@@ -1,10 +1,7 @@
 // @flow
 import { Provider } from "react-redux";
-import * as UUID from "uuid";
 import React from "react";
 import ReactDOM from "react-dom";
-import { createAction } from 'redux-act';
-import { createReducer } from 'redux-act';
 
 import { createStore, Actions, Selectors } from "@andyet/simplewebrtc";
 
@@ -15,21 +12,30 @@ export default function(res) {
     const CONFIG_URL = `https://api.simplewebrtc.com/config/guest/${API_KEY}`;
 
     const store = createStore();
-    sessionStorage.setItem('user', JSON.stringify(res.data));
+    sessionStorage.setItem("user", JSON.stringify(res.data));
 
     window.store = store;
     window.actions = Actions;
     window.selectors = Selectors;
 
     const params = new URLSearchParams(window.location.search);
-
+    const room = params.get("room");
     if (!params.get("room")) {
-        window.location = `/chat/?room=${UUID.v4()}`;
+        window.location = `/chat/?room=chat_for_all`;
     }
-    ReactDOM.render(
-        <Provider store={store}>
-            <App configUrl={CONFIG_URL} roomName={params.get("room")} roomPassword={params.get("key") || ""} />
-        </Provider>,
-        document.getElementById("root")
-    );
+    const users = room.split("_");
+
+
+    if (users.indexOf(res.data.login) === -1 && room != "chat_for_all") {
+        ReactDOM.render(<h1>Вы не учавствуете в этом чате</h1>);
+    } else {
+        ReactDOM.render(
+            <Provider store={store}>
+                <App configUrl={CONFIG_URL} roomName={room} userData={res.data} roomPassword={params.get("key") || ""} />
+            </Provider>,
+            document.getElementById("root")
+        );
+    }
+
+
 }
