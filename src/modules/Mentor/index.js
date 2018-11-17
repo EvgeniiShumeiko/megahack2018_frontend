@@ -10,12 +10,14 @@ import { render } from 'react-dom';
 import { Container, Layout } from '@core/components';
 
 import * as effects from './store/effects';
-import { RootRoute, TaskExchange, Board, ChatRoute, ProfilePage } from './routes';
 import { store, history } from './store';
+import RootRoute from "./routes/RootRoute";
+import ProfilePage from "./routes/ProfilePage";
+import {CreateTask} from "./routes/ProfilePage/CreateTask";
 
 @withRouter
 @hot(module)
-export class App extends Component {
+export class Mentor extends Component {
     state={
         routes: [{
             component: RootRoute,
@@ -23,20 +25,15 @@ export class App extends Component {
             link: '/',
             title: 'RootRoute',
         },{
-            component: Board,
-            exact: false,
-            link: '/board',
-            title: 'Board',
-        },{
-            component: TaskExchange,
-            exact: false,
-            link: '/taskExchange',
-            title: 'Биржа задач',
-        },{
             component: ProfilePage,
             exact: false,
             link: '/profilePage',
-            title: 'Личный кабинет',
+            title: 'Профиль',
+        },{
+            component: CreateTask,
+            exact: false,
+            link: '/createTask',
+            title: 'Профиль',
         }],
     };
 
@@ -69,7 +66,7 @@ export default function(user = {}) {
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Router>
-                    <App />
+                    <Mentor />
                 </Router>
             </ConnectedRouter>
         </Provider>,

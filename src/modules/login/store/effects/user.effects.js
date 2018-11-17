@@ -3,7 +3,7 @@ import {
 } from '@app/store/actions';
 import axios from 'axios';
 
-const url = 'http://10.155.57.152:8080';
+const url = 'http://10.155.62.243:8080';
 
 export const setUser = user => dispatch => {
     dispatch(

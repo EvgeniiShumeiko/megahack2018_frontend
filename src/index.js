@@ -1,14 +1,17 @@
 import { default as App } from '@app';
 import { default as Chat } from './modules/chat'
 import { default as Login } from "./modules/login";
+import { default as Mentor } from './modules/Mentor'
 import axios from 'axios';
 
-const url = 'http://10.155.57.152:8080';
+export const url = 'http://10.155.62.243:8080';
 
-axios.get(url + '/account/info', { headers: { authorization: localStorage.getItem('secretKey') }})
+axios.get(url + '/account/role', { headers: { authorization: localStorage.getItem('secretKey') }})
     .then((res) => {
-        console.log(res);
-        App({ name: 'Example Name ', email: 'username@example.com'})
+        if (res.data === 'developer')
+            App({ name: 'Example Name ', email: 'username@example.com'})
+        else
+            Mentor({ name: 'Example Name ', email: 'username@example.com'})
     })
     .catch(() => {
         console.log('login');
