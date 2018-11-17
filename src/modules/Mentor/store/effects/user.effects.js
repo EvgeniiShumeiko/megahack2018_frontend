@@ -22,3 +22,5 @@ export const getMentor = () => axios.get(url + '/account/developer', { headers: 
 
 export const getMe = () => axios.get(url + '/account/info', { headers: { authorization: localStorage.getItem('secretKey') }})
     .then(res => res.data.login);
+
+
