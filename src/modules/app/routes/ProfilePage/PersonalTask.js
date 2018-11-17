@@ -6,6 +6,7 @@ import { DisptachProps } from '@core/props';
 import './style.styl';
 import human from "../TaskExchange/assets/human.jpg";
 import calendar from "../TaskExchange/assets/calendar.jpg";
+import {Link} from "react-router-dom";
 
 @connect(({ user }) => ({ user }))
 export class PersonalTask extends Component {
@@ -27,7 +28,7 @@ export class PersonalTask extends Component {
                 <div className={'personalTaskMeta'}>
                     <div className={'titleWithTable'}>
                         <label className={'personalTitle'}>{title}</label>
-                        <button className={'personalTaskButton'}>Ход работы</button>
+                        <Link to={'/board'} className={'personalTaskButton'}>Ход работы</Link>
                     </div>
                     <div className={'personalTaskHr'}/>
                     <div className={'smallTaskTitle'}>

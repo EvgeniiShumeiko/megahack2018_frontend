@@ -10,7 +10,9 @@ import {getExchangeTask, getMe, getMentor, getPersonalTask} from "../../store/ef
 import moment from "moment";
 import {SmallTask} from "../TaskExchange/smallTask";
 import {PersonalTask} from "./PersonalTask";
-import {url} from "../../../../index";
+import environment from '@core/environment.json';
+
+const url = environment.API.HOST
 
 @connect(({ user }) => ({ user }))
 export class PersonalTasks extends Component {
@@ -38,9 +40,8 @@ export class PersonalTasks extends Component {
     }
 
     onClick = (event) => {
-        var url = 'http://localhost:8000';
         getMentor().then(mentor => {
-            getMe().then(me => window.location.href = url + '/chat/?room=' + mentor + '_' + me);
+            getMe().then(me => window.location.href = ' /chat/?room=' + mentor + '_' + me);
         });
         console.log(mentor)
     };
