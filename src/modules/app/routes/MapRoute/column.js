@@ -32,6 +32,7 @@ export default class Column extends Component {
         title: PropTypes.object.isRequired,
         index: PropTypes.object.isRequired,
         items: PropTypes.object.isRequired,
+        addItems: PropTypes.func.isRequired,
     };
 
     state = {
@@ -56,8 +57,10 @@ export default class Column extends Component {
     };
 
     render() {
-        const { title, index, items } = this.props;
+        const { title, index, items, addItems } = this.props;
         const { showModal, skills, date } = this.state;
+
+        //console.log(this.props);
 
         return (
             <Draggable draggableId={title.index} index={index} key={title.key}>
@@ -69,7 +72,6 @@ export default class Column extends Component {
                         <div
                             className='column-header'
                             {...provided.dragHandleProps}
-                            style={{height: '100px', background: "#000"}}
                         >
                             <div className='column-tags' onClick={() => {if (showModal) this.changeShowModalState()}}>
                                 {!showModal &&
@@ -81,9 +83,12 @@ export default class Column extends Component {
                                     />}
                                     {
                                         skills.filter(item => item).map((item, index) =>
-                                            <span key={`skill-${title.index}-${index}`} className='active-skill'>
+                                            <span key={`skill-${title.id}-${index}`} className='active-skill'>
                                             </span>)
                                     }
+                            </div>
+                            <div className='add-items' onClick={() => addItems(title.id)}>
+                                +
                             </div>
                         </div>
                         <Droppable droppableId={title.key}>

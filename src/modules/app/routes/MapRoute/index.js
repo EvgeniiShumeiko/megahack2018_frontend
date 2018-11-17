@@ -66,6 +66,16 @@ export default class Board extends Component {
         columns: getColumns(3),
     };
 
+    addItems = (columnId) => {
+        console.log(columnId);
+        const { columns } = this.state;
+        columns[columnId].items.push({
+            id: `item-${columns[columnId].items.length}-${columnId}`,
+            content: `item ${columns[columnId].items.length}`
+        });
+        this.forceUpdate();
+    };
+
     onDragEnd = result => {
         const { columns } = this.state;
         console.log(result);
@@ -124,6 +134,7 @@ export default class Board extends Component {
                                 {columns.map((key, index, id, items) => {
                                     return(
                                     <Column
+                                        addItems={this.addItems}
                                         key={key}
                                         index={index}
                                         title={key}
