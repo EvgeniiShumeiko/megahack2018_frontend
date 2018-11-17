@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import PropTypes from 'prop-types';
-import TasksTypesModal from '@core/components/components.board/modal/task.js'
+import TasksTypesModal from '@core/components/components.board/modal/taskType.js'
 
 import './style.styl'
 import TaskExchange from "../TaskExchange";
@@ -33,6 +33,7 @@ export default class Column extends Component {
         index: PropTypes.object.isRequired,
         items: PropTypes.object.isRequired,
         addItems: PropTypes.func.isRequired,
+        showTaskModal: PropTypes.func.isRequired,
     };
 
     state = {
@@ -57,7 +58,7 @@ export default class Column extends Component {
     };
 
     render() {
-        const { title, index, items, addItems } = this.props;
+        const { title, index, items, addItems, showTaskModal } = this.props;
         const { showModal, skills, date } = this.state;
 
         //console.log(this.props);
@@ -109,8 +110,10 @@ export default class Column extends Component {
                                                     style={getItemStyle(
                                                         snapshot.isDragging,
                                                         provided.draggableProps.style
-                                                    )}>
-                                                    {item.content}
+                                                    )}
+                                                    onClick={() => showTaskModal(item.id)}
+                                                >
+                                                    {item.header}
                                                 </div>
                                             )}
                                         </Draggable>

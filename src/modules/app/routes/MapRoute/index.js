@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Column from './column';
+import TaskDescription from '@core/components/components.board/modal/taskDescription.js'
 
 // fake data generator
 const getColumns = (count, offset = 0) =>
@@ -10,7 +11,8 @@ const getColumns = (count, offset = 0) =>
         id: k,
         items:  Array.from({ length: 10 }, (v, j) => j).map(i => ({
             id: `item-${i + offset}-${k}`,
-            content: `item ${i + offset}`
+            header: `header ${i + offset}`,
+            content: `item ${i + offset}`,
         }))
     }));
 
@@ -40,40 +42,84 @@ const move = (source, destination, droppableSource, droppableDestination) => {
     return result;
 };
 
-const grid = 8;
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-    // some basic styles to make the items look a bit nicer
-    userSelect: 'none',
-    padding: grid * 2,
-    margin: `0 0 ${grid}px 0`,
-
-    // change background colour if dragging
-    background: isDragging ? 'lightgreen' : 'grey',
-
-    // styles we need to apply on draggables
-    ...draggableStyle
-});
-
-const getListStyle = isDraggingOver => ({
-    background: isDraggingOver ? 'lightblue' : 'lightgrey',
-    padding: grid,
-    width: 250
-});
-
 export default class Board extends Component {
     state = {
         columns: getColumns(3),
+        showTaskModal: false,
+        showModalTaskId: 0
     };
+
+    constructor(){
+        super();
+        this.removeItem = this.removeItem.bind(this);
+    }
 
     addItems = (columnId) => {
         console.log(columnId);
         const { columns } = this.state;
         columns[columnId].items.push({
             id: `item-${columns[columnId].items.length}-${columnId}`,
+            header: `header ${columns[columnId].items.length}`,
             content: `item ${columns[columnId].items.length}`
         });
         this.forceUpdate();
+    };
+
+    changeHeader = (newHeader, itemId) => {
+        const { columns } = this.state;
+        columns.forEach(column => column.items.forEach(
+            item => {
+                if (item.id === itemId)
+                    item.header = newHeader;
+            }
+        ))
+    };
+
+    changeContent = (newContent, itemId) => {
+        const { columns } = this.state;
+        columns.forEach(column => column.items.forEach(
+            item => {
+                if (item.id === itemId)
+                    item.content = newContent;
+            }
+        ))
+    };
+
+    removeItem = itemId => {
+        console.log(itemId);
+        console.log('columns', this.state.columns);
+        let result = new Array(...this.state.columns);
+        console.log(result);
+        for (let i=0; i<result.length; ++i)
+            result[i].items = result[i].items.filter(item => item.id !== itemId)
+        console.log(result);
+        this.setState({columns: result});
+    };
+
+    changeShowModalTask = itemId => {
+        const { showTaskModal } =this.state;
+        this.setState({showTaskModal: !showTaskModal, showModalTaskId: itemId})
+    };
+
+    showModal = (itemId) => {
+        let currentItem = {};
+        const { columns } = this.state;
+        columns.forEach(column => column.items.forEach(
+            item => {
+                if (item.id === itemId)
+                    currentItem = item;
+            }
+        ));
+        return(
+            <TaskDescription
+                id={currentItem.id}
+                content={currentItem.content}
+                header={currentItem.header}
+                changeContent={this.changeContent}
+                changeHeader={this.changeHeader}
+                removeItem={this.removeItem}
+                changeShowModal={this.changeShowModalTask}
+            />)
     };
 
     onDragEnd = result => {
@@ -115,37 +161,40 @@ export default class Board extends Component {
     // Normally you would want to split things out into separate components.
     // But in this example everything is just done in one place for simplicity
     render() {
-        const {columns, items} = this.state;
+        const {columns, items, showTaskModal, showModalTaskId } = this.state;
         console.log(items);
         return (
-            <DragDropContext onDragEnd={this.onDragEnd}>
-                <Droppable
-                    droppableId="board"
-                    type="COLUMN"
-                    direction="horizontal"
-                    isCombineEnabled={true}
-                >
-                    {
-                        (provided, snapshot) => (
-                            <div
-                                className='time-line'
-                                ref={provided.innerRef}
-                                {...provided.droppableProps}>
-                                {columns.map((key, index, id, items) => {
-                                    return(
-                                    <Column
-                                        addItems={this.addItems}
-                                        key={key}
-                                        index={index}
-                                        title={key}
-                                        items={items}
-                                    />
-                                )})}
-                            </div>
-                        )
-                    }
-                </Droppable>
-            </DragDropContext>
+            <div>
+                {showTaskModal && this.showModal(showModalTaskId)}
+                <DragDropContext onDragEnd={this.onDragEnd}>
+                    <Droppable
+                        droppableId="board"
+                        type="COLUMN"
+                        direction="horizontal"
+                        isCombineEnabled={true}
+                    >
+                        {
+                            (provided, snapshot) => (
+                                <div
+                                    className='time-line'
+                                    ref={provided.innerRef}
+                                    {...provided.droppableProps}>
+                                    {columns.map((key, index, id, items) => {
+                                        return(
+                                        <Column
+                                            addItems={this.addItems}
+                                            key={key}
+                                            index={index}
+                                            title={key}
+                                            items={items}
+                                            showTaskModal={this.changeShowModalTask}/>
+                                    )})}
+                                </div>
+                            )
+                        }
+                    </Droppable>
+                </DragDropContext>
+            </div>
         );
     }
 }
