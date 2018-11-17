@@ -15,4 +15,7 @@ axios
             else if (res.data === "mentor") Mentor({ name: "Example Name ", email: "username@example.com" });
         } else Chat(res);
     })
-    .catch(() => {});
+    .catch(() => {
+        console.log("login");
+        Login({ name: "Name ", email: "username@example.com" });
+    });
