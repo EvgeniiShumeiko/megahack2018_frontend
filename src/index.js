@@ -12,7 +12,7 @@ axios.get(url + '/account/role', { headers: { authorization: localStorage.getIte
         if (window.location.pathname.indexOf("chat") === -1) {
             if (res.data === 'developer')
                 App({name: 'Example Name ', email: 'username@example.com'})
-            else
+            else if (res.data === 'mentor')
                 Mentor({name: 'Example Name ', email: 'username@example.com'})
         }
         else

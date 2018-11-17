@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
+import url from '../../index'
 
 import { createStore, Actions, Selectors } from "@andyet/simplewebrtc";
 
@@ -30,7 +31,6 @@ export default function(res) {
     if (users.indexOf(res.data.login) === -1 && room !== "chat_for_all") {
         ReactDOM.render(<h1>Вы не учавствуете в этом чате</h1>, document.getElementById("root"));
     } else {
-        const url = "http://10.155.62.243:8080";
         const forUser = users.filter(x => x !== res.data.login);
         axios
             .get(`${url}/account/exists/${forUser[0]}`, { headers: { authorization: localStorage.getItem("secretKey") } })

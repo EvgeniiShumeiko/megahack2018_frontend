@@ -3,8 +3,7 @@ import {
 } from '@app/store/actions';
 import axios from 'axios';
 import moment from 'moment';
-
-const url = 'http://10.155.62.243:8080';
+import url from '../../index';
 
 export const setUser = user => dispatch => {
     dispatch(
@@ -23,3 +22,5 @@ export const getMentor = () => axios.get(url + '/account/developer', { headers: 
 
 export const getMe = () => axios.get(url + '/account/info', { headers: { authorization: localStorage.getItem('secretKey') }})
     .then(res => res.data.login);
+
+

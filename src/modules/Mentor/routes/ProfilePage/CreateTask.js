@@ -54,6 +54,7 @@ export class CreateTask extends Component {
                     <input type='text' onChange={this.onChangeDesc} value={this.state.desc} placeholder='Описание'/>
                     <input type='text' onChange={this.onChangePrice} value={this.state.price} placeholder='Цена'/>
                     <input type='text' onChange={this.onChangeDate} value={this.state.data} placeholder='Срок'/>
+                    <button onClick={this.onClick}>отправить</button>
                 </div>
             </div>
         );
