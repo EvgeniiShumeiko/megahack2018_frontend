@@ -4,7 +4,9 @@ import {
 import axios from 'axios';
 import moment from 'moment';
 
-const url = 'https://4c8e7c34.ngrok.io';
+import environment from '@core/environment.json';
+
+const url = environment.API.HOST
 
 export const setUser = user => dispatch => {
     dispatch(

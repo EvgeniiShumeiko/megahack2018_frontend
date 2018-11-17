@@ -1,7 +1,7 @@
 {
     "DEBUG": true,
     "API": {
-        "HOST": "http://localhost:3000"
+        "HOST": "http://10.155.62.243:8080"
     },
     "SESSION": {
         "KEY": "session_token"

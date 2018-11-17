@@ -4,8 +4,8 @@ import { default as Chat } from "./modules/chat";
 import { default as Login } from "./modules/login";
 import { default as Mentor } from "./modules/Mentor";
 import axios from "axios";
-
-const url = 'https://4c8e7c34.ngrok.io';
+import environment from '@core/environment.json';
+const url = environment.API.HOST;
 
 axios
     .get(`${url}/account/role`, { headers: { authorization: localStorage.getItem("secretKey") } })
@@ -13,11 +13,17 @@ axios
         console.log(res);
         console.log(url);
         if (window.location.pathname.indexOf("chat") === -1) {
-            if (res.data === "developer") App({ name: "Example Name ", email: "username@example.com" });
-            else if (res.data === "mentor") Mentor({ name: "Example Name ", email: "username@example.com" });
+            if (res.data === "developer")
+                App({ name: "Example Name ", email: "username@example.com" })
+            else if (res.data === "reporter")
+                Mentor({ name: "Example Name ", email: "username@example.com" })
+            else if (res.data === "reporter")
+                Login({ name: "Name ", email: "username@example.com" });
         } else Chat(res);
     })
     .catch(() => {
         console.log("login");
         Login({ name: "Name ", email: "username@example.com" });
     });
+
+

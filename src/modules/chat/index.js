@@ -4,7 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 
-const url = process.env.SERVER;
+const url = process.env.HOSTURL;
 
 import { createStore, Actions, Selectors } from "@andyet/simplewebrtc";
 

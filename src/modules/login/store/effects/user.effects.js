@@ -2,8 +2,10 @@
 import { setUserAction } from "@app/store/actions";
 import axios from "axios";
 
+import environment from '@core/environment.json';
 
-const url = 'https://4c8e7c34.ngrok.io';
+const url = environment.API.HOST
+
 export const setUser = user => dispatch => {
     dispatch(setUserAction(user));
 };

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import * as session from './sessions';
 
 import environment from '@core/environment.json';
 
@@ -10,7 +9,8 @@ export class Request {
 
     get(url = '/', params = {}, headers = {}) {
         return this.http.get(url, { params, headers })
-            .then(res => res.data);
+            .then(res => res.data)
+            .catch(err => err);
     }
 
     delete(url = '/', params = {}, headers = {}) {
@@ -34,4 +34,4 @@ export class Request {
     }
 }
 
-export default new Request(environment.API.HOST, { Authorization: session.get() });
+export default new Request("https://4c8e7c34.ngrok.io");
