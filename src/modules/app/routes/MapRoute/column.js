@@ -35,23 +35,29 @@ export default class Column extends Component {
     };
 
     state = {
-        showModal: false,
+        showModal: true,
         skills: [],
+        date: '',
     };
 
     changeShowModalState = () => {
         const { showModal } = this.state;
         console.log('change modal state');
         this.setState({showModal: !showModal});
+        this.forceUpdate();
     };
 
     updateSkills = skills => {
         this.setState({skills})
     };
 
+    updateDate = date => {
+        this.setState({date})
+    };
+
     render() {
         const { title, index, items } = this.props;
-        const { showModal } = this.state;
+        const { showModal, skills, date } = this.state;
 
         return (
             <Draggable draggableId={title.index} index={index} key={title.key}>
@@ -66,7 +72,18 @@ export default class Column extends Component {
                             style={{height: '100px', background: "#000"}}
                         >
                             <div className='column-tags' onClick={() => {if (showModal) this.changeShowModalState()}}>
-                                {!showModal && <TasksTypesModal showModal={this.changeShowModalState} date={{}} choosedTypes={{}} columnId={index}/>}
+                                {!showModal &&
+                                    <TasksTypesModal
+                                        showModal={this.changeShowModalState}
+                                        date={this.updateDate}
+                                        choosedTypes={this.updateSkills}
+                                        columnId={index}
+                                    />}
+                                    {
+                                        skills.filter(item => item).map((item, index) =>
+                                            <span key={`skill-${title.index}-${index}`} className='active-skill'>
+                                            </span>)
+                                    }
                             </div>
                         </div>
                         <Droppable droppableId={title.key}>
