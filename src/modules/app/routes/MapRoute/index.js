@@ -6,7 +6,12 @@ import Column from './column';
 const getColumns = (count, offset = 0) =>
     Array.from({ length: count }, (v, k) => k).map(k => ({
         key: `column-${k + offset}`,
-        index: `column ${k + offset}`
+        index: `column ${k + offset}`,
+        id: k,
+        items:  Array.from({ length: 10 }, (v, j) => j).map(i => ({
+            id: `item-${i + offset}-${k}`,
+            content: `item ${i + offset}`
+        }))
     }));
 
 // a little function to help us with reordering the result
@@ -61,19 +66,9 @@ export default class Board extends Component {
         columns: getColumns(3),
     };
 
-    /**
-     * A semi-generic way to handle multiple lists. Matches
-     * the IDs of the droppable container to the names of the
-     * source arrays stored in the state.
-     */
-    id2List = {
-        droppable: 'items',
-        droppable2: 'selected'
-    };
-
-    getList = id => this.state[this.id2List[id]];
-
     onDragEnd = result => {
+        const { columns } = this.state;
+        console.log(result);
         const { source, destination } = result;
 
         // dropped outside the list
@@ -81,46 +76,42 @@ export default class Board extends Component {
             return;
         }
 
+        if (result.type === 'COLUMN')
+            return;
+
         if (source.droppableId === destination.droppableId) {
-            const items = reorder(
-                this.getList(source.droppableId),
-                source.index,
-                destination.index
-            );
-
-            let state = { items };
-
-            if (source.droppableId === 'droppable2') {
-                state = { selected: items };
-            }
-
-            this.setState(state);
+            for (let i=0; i<columns.length; ++i)
+                if (columns[i].key === source.droppableId){
+                    columns[i].items = reorder(columns[i].items, source.index, destination.index);
+                }
         } else {
-            const result = move(
-                this.getList(source.droppableId),
-                this.getList(destination.droppableId),
-                source,
-                destination
-            );
-
-            this.setState({
-                items: result.droppable,
-                selected: result.droppable2
-            });
+            let sourceColumnId = undefined;
+            let destenationColumnId = undefined;
+            for (let i=0; i<columns.length; ++i)
+                if (columns[i].key === source.droppableId)
+                    sourceColumnId = i;
+                else if (columns[i].key === destination.droppableId)
+                    destenationColumnId = i;
+            let result = move(columns[sourceColumnId].items, columns[destenationColumnId].items, source, destination);
+            columns[sourceColumnId].items=result[columns[sourceColumnId].key];
+            columns[destenationColumnId].items=result[columns[destenationColumnId].key];
+            console.log('columns', columns);
         }
+        this.setState({columns})
     };
 
     // Normally you would want to split things out into separate components.
     // But in this example everything is just done in one place for simplicity
     render() {
-        const {columns} = this.state;
-
+        const {columns, items} = this.state;
+        console.log(items);
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <Droppable
                     droppableId="board"
                     type="COLUMN"
                     direction="horizontal"
+                    isCombineEnabled={true}
                 >
                     {
                         (provided, snapshot) => (
@@ -128,13 +119,15 @@ export default class Board extends Component {
                                 className='time-line'
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}>
-                                {columns.map((key, index) => (
+                                {columns.map((key, index, id, items) => {
+                                    return(
                                     <Column
                                         key={key}
                                         index={index}
                                         title={key}
+                                        items={items}
                                     />
-                                ))}
+                                )})}
                             </div>
                         )
                     }
