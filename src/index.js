@@ -9,12 +9,12 @@ console.log(window.location.pathname)
 
 axios.get(url + '/account/info', { headers: { authorization: localStorage.getItem('secretKey') }})
     .then((res) => {
-        console.log(res);
+        console.log('res', res);
 
         if(window.location.pathname.indexOf('chat') === -1)
             App({ name: 'Example Name ', email: 'username@example.com'});
         else
-            Chat();
+            Chat(res);
     })
     .catch(() => {
         console.log('login');
