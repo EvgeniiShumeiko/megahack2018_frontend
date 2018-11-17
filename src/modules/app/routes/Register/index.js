@@ -6,7 +6,7 @@ import { DisptachProps } from '@core/props';
 import './style.styl';
 
 @connect(({ user }) => ({ user }))
-export default class RootRoute extends Component {
+export default class Register extends Component {
     static propTypes = {
         ...DisptachProps,
         user: PropTypes.object.isRequired,
@@ -15,8 +15,8 @@ export default class RootRoute extends Component {
     render() {
         const { user } = this.props;
 
-        return <div className='container'>
-            App
-        </div>;
+        return (
+            <div>app</div>
+        )
     }
 }
