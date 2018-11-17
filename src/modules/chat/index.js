@@ -3,7 +3,8 @@ import { Provider } from "react-redux";
 import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
-import url from '../../index'
+
+const url = process.env.SERVER;
 
 import { createStore, Actions, Selectors } from "@andyet/simplewebrtc";
 

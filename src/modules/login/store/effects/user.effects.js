@@ -1,8 +1,9 @@
 // @flow
 import { setUserAction } from "@app/store/actions";
 import axios from "axios";
-import url from "../../../../index.js";
 
+
+const url = process.env.SERVER;
 export const setUser = user => dispatch => {
     dispatch(setUserAction(user));
 };
