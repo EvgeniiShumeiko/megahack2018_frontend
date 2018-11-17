@@ -26,7 +26,7 @@ export default function(res) {
     }
     store.dispatch(Actions.setDisplayName(res.data.login));
     const users = room.split("_");
-
+    console.log(store.getState())
     if (users.indexOf(res.data.login) === -1 && room !== "chat_for_all") {
         ReactDOM.render(<h1>Вы не учавствуете в этом чате</h1>, document.getElementById("root"));
     } else {
@@ -35,7 +35,7 @@ export default function(res) {
         axios
             .get(`${url}/account/exists/${forUser[0]}`, { headers: { authorization: localStorage.getItem("secretKey") } })
             .then(response => {
-                if (response == true && users[0] !== users[1]) {
+                if ((response.data && users[0] !== users[1]) || room === "chat_for_all") {
                     ReactDOM.render(
                         <Provider store={store}>
                             <App configUrl={CONFIG_URL} roomName={room} userData={res.data} roomPassword={params.get("key") || ""} />
@@ -47,7 +47,7 @@ export default function(res) {
                 }
             })
             .catch(() => {
-                console.log("false");
+                ReactDOM.render(<h1>Чата не существует</h1>, document.getElementById("root"));
             });
     }
 }
