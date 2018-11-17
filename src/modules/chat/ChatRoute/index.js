@@ -37,7 +37,7 @@ import {
     StyledChatListContainer
 } from "./Styles";
 
-const App = ({ configUrl, userData, roomName, roomPassword }) => (
+const App = ({ configUrl, userData, roomName, roomPassword, st }) => (
     <Provider configUrl={configUrl} userData={userData}>
         {/*
        The <RemoteAudioPlayer/> plays all remote audio, muting as needed
@@ -93,7 +93,6 @@ const App = ({ configUrl, userData, roomName, roomPassword }) => (
                     if (!room.joined) {
                         return <h1>Joining room...</h1>;
                     }
-
                     const remoteVideos = remoteMedia.filter(m => m.kind === "video");
                     const localVideos = localMedia.filter(m => m.kind === "video" && m.shared);
                     const localScreens = localVideos.filter(m => m.screenCapture);
@@ -141,16 +140,10 @@ const App = ({ configUrl, userData, roomName, roomPassword }) => (
                                     )}
                                 </div>
                                 <UserControls
-                                    render={({isMuted, mute, unmute, pauseVideo, resumeVideo, isPaused, setDisplayName }) => (
+                                    render={({ user, isMuted, mute, unmute, pauseVideo, resumeVideo, isPaused }) => (
                                         <div>
                                             {/* A very basic method for setting a display name */}
-                                            <ContentEditable
-                                                className="display-name-editor"
-                                                html={userData.name}
-                                                onChange={event => {
-                                                    setDisplayName(event.target.value.trim());
-                                                }}
-                                            />
+                                            <div className="display-name-editor"> {user.displayName} </div>
                                             <button onClick={() => (isMuted ? unmute() : mute())}>{isMuted ? "Unmute" : "Mute"}</button>
                                             <button onClick={() => (isPaused ? resumeVideo() : pauseVideo())}>{isPaused ? "Video On" : "Video Off"}</button>
                                         </div>

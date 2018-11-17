@@ -2,6 +2,7 @@
 import { Provider } from "react-redux";
 import React from "react";
 import ReactDOM from "react-dom";
+import axios from "axios";
 
 import { createStore, Actions, Selectors } from "@andyet/simplewebrtc";
 
@@ -23,19 +24,30 @@ export default function(res) {
     if (!params.get("room")) {
         window.location = `/chat/?room=chat_for_all`;
     }
+    store.dispatch(Actions.setDisplayName(res.data.login));
     const users = room.split("_");
 
-
-    if (users.indexOf(res.data.login) === -1 && room != "chat_for_all") {
-        ReactDOM.render(<h1>Вы не учавствуете в этом чате</h1>);
+    if (users.indexOf(res.data.login) === -1 && room !== "chat_for_all") {
+        ReactDOM.render(<h1>Вы не учавствуете в этом чате</h1>, document.getElementById("root"));
     } else {
-        ReactDOM.render(
-            <Provider store={store}>
-                <App configUrl={CONFIG_URL} roomName={room} userData={res.data} roomPassword={params.get("key") || ""} />
-            </Provider>,
-            document.getElementById("root")
-        );
+        const url = "http://10.155.62.243:8080";
+        const forUser = users.filter(x => x !== res.data.login);
+        axios
+            .get(`${url}/account/exists/${forUser[0]}`, { headers: { authorization: localStorage.getItem("secretKey") } })
+            .then(response => {
+                if (response == true && users[0] !== users[1]) {
+                    ReactDOM.render(
+                        <Provider store={store}>
+                            <App configUrl={CONFIG_URL} roomName={room} userData={res.data} roomPassword={params.get("key") || ""} />
+                        </Provider>,
+                        document.getElementById("root")
+                    );
+                } else {
+                    ReactDOM.render(<h1>Чата не существует</h1>, document.getElementById("root"));
+                }
+            })
+            .catch(() => {
+                console.log("false");
+            });
     }
-
-
 }
