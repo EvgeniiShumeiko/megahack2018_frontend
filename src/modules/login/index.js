@@ -10,8 +10,7 @@ import { render } from 'react-dom';
 import { Container, Layout } from '@core/components';
 
 import * as effects from './store/effects';
-import { RootRoute } from './routes';
-import Board from './routes/MapRoute/index'
+import { RootRoute, Register, Login } from './routes';
 import { store, history } from './store';
 
 @withRouter
@@ -29,10 +28,10 @@ export class App extends Component {
             link: '/register',
             title: 'Регистрация',
         },{
-            component: TaskExchange,
+            component: Login,
             exact: false,
-            link: '/register',
-            title: 'Регистрация',
+            link: '/login',
+            title: 'Логин',
         }],
     };
 
@@ -43,9 +42,9 @@ export class App extends Component {
                 <Switch>
                     {routes.map(route =>
                         <Route key={route.link}
-                            exact={route.exact}
-                            component={route.component}
-                            path={route.link}
+                               exact={route.exact}
+                               component={route.component}
+                               path={route.link}
                         />
                     )}
                     <Redirect to="/" />
@@ -59,6 +58,8 @@ export default function(user = {}) {
     store?.dispatch(
         effects.setUser(user),
     );
+
+    console.log(42);
 
     render(
         <Provider store={store}>

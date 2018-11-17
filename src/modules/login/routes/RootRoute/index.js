@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { DisptachProps } from '@core/props';
 
 import './style.styl';
+import {Link} from "react-router-dom";
 
 @connect(({ user }) => ({ user }))
 export default class RootRoute extends Component {
@@ -15,8 +16,13 @@ export default class RootRoute extends Component {
     render() {
         const { user } = this.props;
 
-        return <div className='container'>
-            App
+        return <div>
+            <Link to={'/login'}>
+                Войти
+            </Link>
+            <Link to={'/register'}>
+                Зарегистрироваться
+            </Link>
         </div>;
     }
 }
