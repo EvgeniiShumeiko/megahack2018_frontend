@@ -5,7 +5,7 @@ import { default as Login } from "./modules/login";
 import { default as Mentor } from './modules/Mentor'
 import axios from 'axios';
 
-export const url = 'http://10.155.62.243:8080';
+export const url = 'https://04060fe2.ngrok.io';
 
 axios.get(url + '/account/role', { headers: { authorization: localStorage.getItem('secretKey') }})
     .then((res) => {
