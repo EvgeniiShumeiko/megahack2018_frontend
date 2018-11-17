@@ -1,4 +1,10 @@
-coverage
-dist
-lib
-node_modules
+# Generated files
+dist/
+flow-typed/
+site/
+babel.config.js
+
+# autoprefixer's eslintConfig was being picked up and attempted to be applied. No thanks
+website/node_modules/
+website/public/
+website/.cache/

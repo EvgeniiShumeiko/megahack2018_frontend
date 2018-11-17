@@ -10,7 +10,7 @@ import { render } from 'react-dom';
 import { Container, Layout } from '@core/components';
 
 import * as effects from './store/effects';
-import { RootRoute, TaskExchange } from './routes';
+import { RootRoute, TaskExchange, Board, ChatRoute } from './routes';
 import { store, history } from './store';
 
 @withRouter
@@ -22,6 +22,11 @@ export class App extends Component {
             exact: true,
             link: '/',
             title: 'RootRoute',
+        },{
+            component: Board,
+            exact: false,
+            link: '/board',
+            title: 'Board',
         },{
             component: TaskExchange,
             exact: false,
@@ -54,6 +59,7 @@ export default function(user = {}) {
         effects.setUser(user),
     );
 
+    window.store = store;
     render(
         <Provider store={store}>
             <ConnectedRouter history={history}>
