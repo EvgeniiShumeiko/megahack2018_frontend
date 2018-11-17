@@ -24,16 +24,12 @@ export class App extends Component {
             link: '/',
             title: 'RootRoute',
         },{
-            component: Register,
-            exact: false,
-            link: '/register',
-            title: 'Регистрация',
-        },{
-            component: TaskExchange,
-            exact: false,
-            link: '/register',
-            title: 'Регистрация',
-        }],
+                component: Board,
+                exact: false,
+                link: '/board',
+                title: 'Board',
+        }
+        ],
     };
 
     render() {

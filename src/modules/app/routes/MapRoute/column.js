@@ -49,9 +49,9 @@ export default class Column extends Component {
                         >
                         </div>
                         <div className='column-tags'>
-                            <span></span>
-                            <span></span>
-                            <span></span>
+                            <span className='skill'></span>
+                            <span className='skill'></span>
+                            <span className='skill'></span>
                         </div>
                         <Droppable droppableId={title.key}>
                             {(provided, snapshot) => (
