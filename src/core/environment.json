@@ -1,7 +1,8 @@
 {
     "DEBUG": true,
     "API": {
-        "HOST": "https://1cfdcea4.ngrok.io"
+        "HOST": "https://1cfdcea4.ngrok.io",
+        "SOCKET": "https://nammm.ru:3000/"
     },
     "SESSION": {
         "KEY": "session_token"

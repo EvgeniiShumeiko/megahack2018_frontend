@@ -4,11 +4,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 
-const url = process.env.HOSTURL;
-
 import { createStore, Actions, Selectors } from "@andyet/simplewebrtc";
 
 import App from "./ChatRoute";
+
+const url = process.env.HOSTURL;
 
 export default function(res) {
     const API_KEY = "7fd4b5f256a05e4d653f08e1";
@@ -26,10 +26,10 @@ export default function(res) {
     if (!params.get("room")) {
         window.location = `/chat/?room=chat_for_all`;
     }
-    console.log(res)
+    console.log(res);
     window.store.dispatch(window.actions.setDisplayName(res.data.login));
     const users = room.split("_");
-    console.log(store.getState())
+    console.log(store.getState());
     if (users.indexOf(res.data.login) === -1 && room !== "chat_for_all") {
         ReactDOM.render(<h1>Вы не учавствуете в этом чате</h1>, document.getElementById("root"));
     } else {
@@ -38,6 +38,8 @@ export default function(res) {
             .get(`${url}/account/exists/${forUser[0]}`, { headers: { authorization: localStorage.getItem("secretKey") } })
             .then(response => {
                 if ((response.data && users[0] !== users[1]) || room === "chat_for_all") {
+                    if (room !== "chat_for_all") SendPush(res.data, forUser[0]);
+
                     ReactDOM.render(
                         <Provider store={store}>
                             <App configUrl={CONFIG_URL} roomName={room} userData={res.data} roomPassword={params.get("key") || ""} />
