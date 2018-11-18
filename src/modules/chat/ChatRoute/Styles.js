@@ -40,6 +40,7 @@ export const StyledToolbar = styled("div")`
     color: #000;
     box-shadow: rgba(0, 0, 0, 0.2) -1px 3px 1px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
     z-index: 1;
+    min-width:1024px;
 
     & h1 {
         font-size: 20px;
@@ -47,7 +48,9 @@ export const StyledToolbar = styled("div")`
         margin-left: 16px;
         font-weight: 400;
     }
-
+    & .cancel-button {
+            background: #FD6F6F;
+    }
     & button {
         margin-right: 16px;
         background: #007BFF;
@@ -61,7 +64,8 @@ export const StyledToolbar = styled("div")`
 
     & .display-name-editor {
         display: inline;
-        padding:20px
+        padding:20px;
+        margin-right:10px
     }
 `;
 
@@ -72,6 +76,8 @@ export const StyledMainContainer = styled("div")`
     grid-template-rows: 1fr;
     grid-template-areas: "video video video chat";
     background: #e6eaed;
+    min-width:1024px;
+
 `;
 
 export const StyledVideoContainer = styled("div")`
