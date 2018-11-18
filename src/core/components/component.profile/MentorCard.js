@@ -20,22 +20,25 @@ export default class MentorCard extends Component {
         const { profileImg, name, profession, experience, info, sendRequest } = this.props;
 
         return(
-            <div className='mentor-profile'>
-                <img src={profileImg} className='mentor-profile__image'/>
-                <span className='mentor-profile__name'>{name}</span>
-                <span className='mentor-profile__profession'>{profession}</span>
-                <sectiion className='mentor-profile__info'>
-                    <div className='mentor-profile__experience'>
-                        <img src={experienceImg}/>
-                        <span>{experience}</span>
+            <div className='mentor-card'>
+                <div className='background-red'></div>
+                <div className='mentor-profile'>
+                    <img src={profileImg} className='mentor-profile__image'/>
+                    <span className='mentor-profile__name'>{name}</span>
+                    <span className='mentor-profile__profession'>{profession}</span>
+                    <sectiion className='mentor-profile__info'>
+                        <div className='mentor-profile__experience'>
+                            <img src={experienceImg}/>
+                            <span>{experience}</span>
+                        </div>
+                        <div className='mentor-profile__info'>
+                            <img src={infoImg}/>
+                            <span>{info}</span>
+                        </div>
+                    </sectiion>
+                    <div className='mentor-profile__request' onClick={sendRequest}>
+                        Отправить заявку
                     </div>
-                    <div className='mentor-profile__info'>
-                        <img src={infoImg}/>
-                        <span>{info}</span>
-                    </div>
-                </sectiion>
-                <div className='mentor-profile__request' onClick={sendRequest}>
-                    Отправить заявку
                 </div>
             </div>
         )
