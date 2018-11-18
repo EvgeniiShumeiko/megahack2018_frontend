@@ -13,6 +13,10 @@ import * as effects from './store/effects';
 import { RootRoute, TaskExchange, Board, ChatRoute, ProfilePage } from './routes';
 import { store, history } from './store';
 
+//debug
+import AvailableMentors from './routes/ProfilePage/AvailableMentors'
+//debug
+
 @withRouter
 @hot(module)
 export class App extends Component {
@@ -69,7 +73,7 @@ export default function(user = {}) {
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Router>
-                    <App />
+                    <AvailableMentors/>
                 </Router>
             </ConnectedRouter>
         </Provider>,

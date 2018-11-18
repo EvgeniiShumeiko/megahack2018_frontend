@@ -7,7 +7,7 @@ import axios from "axios";
 import environment from '@core/environment.json';
 const url = environment.API.HOST;
 
-Login({name: 'name', email: 'email'});
+App({name: 'name', email: 'email'});
 //axios
 //    .get(`${url}/account/role`, { headers: { authorization: localStorage.getItem("secretKey") } })
 //    .then(res => {
