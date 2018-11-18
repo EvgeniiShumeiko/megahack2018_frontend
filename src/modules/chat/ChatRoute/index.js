@@ -148,6 +148,7 @@ const App = ({ configUrl, userData, roomName, roomPassword, st }) => (
                                             {/* A very basic method for setting a display name */}
                                             <button onClick={() => (isMuted ? unmute() : mute())}>{isMuted ? "Включить звук" : "Выключить звук"}</button>
                                             <button onClick={() => (isPaused ? resumeVideo() : pauseVideo())}>{isPaused ? "Включить видео" : "Выключить видео"}</button>
+                                            <button className="cancel-button" onClick={() => {window.location = '/'}}>Завершить вызов</button>
                                             <a href="/" className="display-name-editor">{user.displayName} </a>
                                         </div>
                                     )}
