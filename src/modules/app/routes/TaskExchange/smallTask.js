@@ -6,20 +6,31 @@ import { DisptachProps } from '@core/props';
 import './style.styl';
 import calendar from './assets/calendar.jpg';
 import human from './assets/human.jpg';
+import {acceptTask} from "../../store/effects";
 
 @connect(({ user }) => ({ user }))
 export class SmallTask extends Component {
+    constructor(){
+        super();
+        this.onClick = this.onClick.bind(this);
+    }
+
     static propTypes = {
         ...DisptachProps,
         title: PropTypes.string.isRequired,
         price: PropTypes.string.isRequired,
         reporter: PropTypes.string.isRequired,
         date: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+    };
+
+    onClick = (event) => {
+        acceptTask(this.props.id);
     };
 
     render() {
         const { user } = this.props;
-        const { title, price, reporter, date} = this.props;
+        const { title, price, reporter, date, id} = this.props;
 
 
 
@@ -37,7 +48,7 @@ export class SmallTask extends Component {
                 <div className={'smallTaskTitle'}>
                     <div className={'smallTaskBio'}><img src={human} height={'40px'}/><label>{reporter}</label></div>
                     <div className={'smallTaskBio'}><img src={calendar} height={'40px'}/><label>{date} дней</label></div>
-                    <button className={'smallTaskButton'}>Принять</button>
+                    <button onClick={this.onclick} className={'smallTaskButton'}>Принять</button>
                 </div>
             </div>
         </div>)

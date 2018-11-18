@@ -32,3 +32,6 @@ export const getMentors = () => axios.get(url + '/account/mentors', { headers: {
 export const setMentor = (login) => axios.post(url + `/account/set_mentor/${login}`, null, { headers: { authorization: localStorage.getItem('secretKey') }})
     .then(res => res.data);
 
+export const acceptTask = (id) => axios.post(url + `/task/accept/${id}`, null, { headers: { authorization: localStorage.getItem('secretKey')}})
+    .then(res => res.data);
+

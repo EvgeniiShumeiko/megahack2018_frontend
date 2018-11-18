@@ -48,7 +48,7 @@ export default class TaskExchange extends Component {
                 <div className={'taskExchangeContainer'}>
                     <div className={'smallTaskTable'}>
                         {this.state.tasks.map(task =>
-                        <SmallTask title={task.title} price={task.price} reporter={task.reporter} date={task.date}/>)}
+                        <SmallTask id={task.id} title={task.title} price={task.price} reporter={task.reporter} date={task.date}/>)}
                     </div>
                 </div>
             </div>
