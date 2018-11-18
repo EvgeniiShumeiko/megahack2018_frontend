@@ -43,21 +43,27 @@ export default class Login extends Component {
         const { mail, password } = this.state;
 
         return (
-            <div>
-                <span>
+            <div className='login-form'>
+                <span className='login-form__title'>
                     Войти в приложение
                 </span>
-                <input type="text" placeholder="Введите логин"  onChange={this.onChangeLogin} name="email" value={mail}/>
-                <input type="password" placeholder="Введите пароль" onChange={this.onChangePassword} name="password" value={password}/>
+                <label htmlFor='login' className='login-form__login'>
+                    Почта:
+                    <input id="login" className='login-form__login' type="email" placeholder="Введите логин" onChange={this.onChangeLogin} name="email" value={mail} required/>
+                </label>
+                <label htmlFor='pass' className='login-form__pass'>
+                    Пароль:
+                    <input id="pass" className='login-form__pass' type="password" placeholder="Введите пароль" onChange={this.onChangePassword} name="password" value={password} required/>
+                </label>
                 {this.state.success === 1 ?
                 <Redirect to={'/'}/> : null
                 }
                 {this.state.success === -1 ?
                     <h2>invalid login</h2> : null
                 }
-                <button onClick={this.onClick}>
-                    Войти
-                </button>
+                <div onClick={this.onClick} className='login-form__submit'>
+                    <span>Войти</span>
+                </div>
             </div>
         )
     }
