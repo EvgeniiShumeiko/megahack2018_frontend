@@ -87,7 +87,6 @@ export default class ProfilePage extends Component {
                         <span>{`${this.state.mentor.accountInfo.surname} ${this.state.mentor.accountInfo.name}`}</span>
                         <span>Наставник</span>
                         <button onClick={this.redirect} className="personalTaskButton" style={{backgroundColor: '#FBA237'}}>Связаться</button>
-                        </button>
                     </div>
                 ) : null}
                 {currentPage === "Мои заказы" && this.state.lonely ? (
