@@ -28,10 +28,7 @@ export default class ProfilePage extends Component {
     };
 
     onClick = (event) => {
-        getMentor().then(mentor => {
-            getMe().then(me => window.location.href = ' /chat/?room=' + mentor + '_' + me);
-        });
-        console.log(mentor)
+        this.setState({ currentPage: event.target.id})
     };
 
     onAnotherClick = (event) => {
@@ -69,7 +66,7 @@ export default class ProfilePage extends Component {
                         <img className={'mentorImage'} src={human}/>
                         <span>Микеев Максим</span>
                         <span>Наставник</span>
-                        <button onClick={this.onClick} className={'personalTaskButton'} style={{backgroundColor: '#FBA237'}}>Связаться</button>
+                        <Link to={'/chat/'} className={'personalTaskButton'} style={{backgroundColor: '#FBA237'}}>Связаться</Link>
                     </div>
                     :
                     null}
