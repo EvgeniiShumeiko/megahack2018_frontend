@@ -8,6 +8,7 @@ import Header from "../Header";
 import {TopBar} from "./topBar";
 import {PersonalTasks} from "./PersonalTasks";
 import {addTask} from "../../store/effects";
+import {Link} from "react-router-dom";
 
 @connect(({ user }) => ({ user }))
 export class CreateTask extends Component {
@@ -76,7 +77,7 @@ export class CreateTask extends Component {
                             <input className={'inputTextTag'} type='text' onChange={this.onChangeDesc} value={this.state.description} />
                         </div>
                         <div>
-                            <button className={'inputButton'} onClick={this.onClick}>Отправить</button>
+                            <Link to={'/profilePage'} className={'inputButton'} onClick={this.onClick}>Отправить</Link>
                         </div>
                     </div>
                 </div>
