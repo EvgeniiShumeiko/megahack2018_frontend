@@ -115,7 +115,7 @@ const App = ({ configUrl, userData, roomName, roomPassword, st }) => (
                                             if (peers.length === 0) {
                                                 return null;
                                             }
-                                            return <span> ({peers.length} speaking)</span>;
+                                            return <span> ({peers.length} говорит)</span>;
                                         }}
                                     />
                                 </div>
@@ -148,7 +148,7 @@ const App = ({ configUrl, userData, roomName, roomPassword, st }) => (
                                             {/* A very basic method for setting a display name */}
                                             <button onClick={() => (isMuted ? unmute() : mute())}>{isMuted ? "Включить звук" : "Выключить звук"}</button>
                                             <button onClick={() => (isPaused ? resumeVideo() : pauseVideo())}>{isPaused ? "Включить видео" : "Выключить видео"}</button>
-                                            <div className="display-name-editor"> {user.displayName} </div>
+                                            <a href="/" className="display-name-editor">{user.displayName} </a>
                                         </div>
                                     )}
                                 />
