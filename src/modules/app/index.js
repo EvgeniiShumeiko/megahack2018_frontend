@@ -41,7 +41,7 @@ export class App extends Component {
         },{
             component: AvailableMentors,
             exact: false,
-            link: '/profilePage/mentors',
+            link: '/mentors',
             title: 'Менторы',
         }
         ],

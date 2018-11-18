@@ -3,9 +3,22 @@ import MentorCard from '@core/components/component.profile/MentorCard.js'
 import Header from '../Header'
 
 import infoImg from '@assets/info.png';
+import {getMentors, setMentor} from "../../store/effects";
 
 export default class AvailableMentors extends Component{
+    constructor() {
+        super();
+        this.state = {
+            mentors: [],
+        }
+    }
+
+    componentWillMount() {
+        getMentors().then(res => this.setState({ mentors: res }));
+    }
+
     render(){
+        console.log(this.state.mentors);
         return(
         <div>
             <Header/>
@@ -20,7 +33,15 @@ export default class AvailableMentors extends Component{
                 </div>
             </nav>
             <main className='all-available-mentors'>
-                <MentorCard experience={'experience'} info={'some info'} name={'UserName'} profession={'profession'} profileImg={infoImg} sendRequest={() => console.log('ans')}/>
+                {this.state.mentors.map(mentor =>
+                    <MentorCard
+                        experience={'experience'}
+                        info={mentor.description}
+                        name={mentor.accountInfo.surname + ' ' + mentor.accountInfo.name[0]}
+                        profession={mentor.tag}
+                        profileImg={infoImg}
+                        sendRequest={() => setMentor(mentor.accountInfo.login)}/>
+                )}
             </main>
         </div>)
     }

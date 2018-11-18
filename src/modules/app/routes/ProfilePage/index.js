@@ -17,7 +17,15 @@ export default class ProfilePage extends Component {
         super();
         this.state = {
             currentPage: 'Мои заказы',
-            lonely: true,
+            lonely: false,
+            me: '',
+            mentor: {
+                accountInfo: {
+                    login: "",
+                    name: "",
+                    surname: ""
+                }
+            },
         };
         this.onClick = this.onClick.bind(this);
         this.onAnotherClick = this.onAnotherClick.bind(this);
@@ -36,7 +44,13 @@ export default class ProfilePage extends Component {
     }
 
     componentWillMount() {
-        getMentor().then(res => this.setState({lonely: res !== undefined}));
+        getMentor().then(res => this.setState({
+            lonely: res == null,
+            mentor: res == null ? this.state.mentor : res,
+        }));
+        getMe().then(res => this.setState({
+            me: res,
+        }))
     }
 
     render() {
@@ -64,9 +78,9 @@ export default class ProfilePage extends Component {
                 {currentPage === 'Мои заказы' && !this.state.lonely ?
                     <div className={'personalMentor'}>
                         <img className={'mentorImage'} src={human}/>
-                        <span>Микеев Максим</span>
+                        <span>{`${this.state.mentor.accountInfo.surname} ${this.state.mentor.accountInfo.name}`}</span>
                         <span>Наставник</span>
-                        <Link to={'/chat/'} className={'personalTaskButton'} style={{backgroundColor: '#FBA237'}}>Связаться</Link>
+                        <Link to={'/chat/?room=' + this.state.mentor.accountInfo.login + '_' + this.state.me} className={'personalTaskButton'} style={{backgroundColor: '#FBA237'}}>Связаться</Link>
                     </div>
                     :
                     null}
@@ -74,7 +88,7 @@ export default class ProfilePage extends Component {
                     <div className={'personalMentor'}>
                         <img className={'mentorImage'} src={human}/>
                         <span>Найти наставника</span>
-                        <Link to={'/'} className={'personalTaskButton'} style={{backgroundColor: '#FBA237'}}>Поиск</Link>
+                        <Link to={'/mentors'} className={'personalTaskButton'} style={{backgroundColor: '#FBA237'}}>Поиск</Link>
                     </div>
                     :
                     null}

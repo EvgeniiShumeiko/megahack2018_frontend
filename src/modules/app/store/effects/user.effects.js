@@ -17,11 +17,11 @@ export const setUser = user => dispatch => {
 export const getExchangeTask = () => axios.get(url + '/task/free', { headers: { authorization: localStorage.getItem('secretKey') }})
         .then(res => res.data);
 
-export const getPersonalTask = () => axios.get(url + '/task/list/developer', { headers: { authorization: localStorage.getItem('secretKey') }})
+export const getPersonalTask = () => axios.get(url + '/task/list', { headers: { authorization: localStorage.getItem('secretKey') }})
     .then(res => res.data);
 
 export const getMentor = () => axios.get(url + '/account/developer', { headers: { authorization: localStorage.getItem('secretKey') }})
-    .then(res => res.data.mentor.login);
+    .then(res => res.data.mentor);
 
 export const getMe = () => axios.get(url + '/account/info', { headers: { authorization: localStorage.getItem('secretKey') }})
     .then(res => res.data.login);
@@ -29,6 +29,6 @@ export const getMe = () => axios.get(url + '/account/info', { headers: { authori
 export const getMentors = () => axios.get(url + '/account/mentors', { headers: { authorization: localStorage.getItem('secretKey') }})
     .then(res => res.data);
 
-export const setMentor = (login) => axios.post(url + `/set_mentor/${login}`, { headers: { authorization: localStorage.getItem('secretKey') }})
+export const setMentor = (login) => axios.post(url + `/account/set_mentor/${login}`, null, { headers: { authorization: localStorage.getItem('secretKey') }})
     .then(res => res.data);
 

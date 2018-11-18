@@ -40,7 +40,7 @@ export class PersonalTasks extends Component {
     onClick = (event) => {
         var url = 'http://10.155.62.248:8000/';
         getMentor().then(mentor => {
-            getMe().then(me => window.location.href = url + '/chat/?room=' + mentor + '_' + me);
+            getMe().then(me => window.location.href = url + '/chat/?room=' + mentor.userInfo.login + '_' + me);
         });
         console.log(mentor)
     };
