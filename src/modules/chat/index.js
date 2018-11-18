@@ -26,6 +26,7 @@ export default function(res) {
     if (!params.get("room")) {
         window.location = `/chat/?room=chat_for_all`;
     }
+    console.log(res)
     window.store.dispatch(window.actions.setDisplayName(res.data.login));
     const users = room.split("_");
     console.log(store.getState())
