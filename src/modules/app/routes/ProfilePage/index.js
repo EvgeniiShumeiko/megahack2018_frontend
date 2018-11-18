@@ -29,6 +29,7 @@ export default class ProfilePage extends Component {
         };
         this.onClick = this.onClick.bind(this);
         this.onAnotherClick = this.onAnotherClick.bind(this);
+        this.redirect = this.redirect.bind(this);
     }
 
     static propTypes = {
@@ -41,7 +42,12 @@ export default class ProfilePage extends Component {
 
     onAnotherClick = (event) => {
 
-    }
+    };
+
+    redirect = (event) => {
+        console.log(event);
+        window.location.href = 'http://localhost:8000/chat/?room=' + this.state.mentor.accountInfo.login + '_' + this.state.me
+    };
 
     componentWillMount() {
         getMentor().then(res => this.setState({
@@ -80,7 +86,7 @@ export default class ProfilePage extends Component {
                         <img className={'mentorImage'} src={human}/>
                         <span>{`${this.state.mentor.accountInfo.surname} ${this.state.mentor.accountInfo.name}`}</span>
                         <span>Наставник</span>
-                        <Link to={'/chat/?room=' + this.state.mentor.accountInfo.login + '_' + this.state.me} className={'personalTaskButton'} style={{backgroundColor: '#FBA237'}}>Связаться</Link>
+                        <button onClick={this.redirect} className={'personalTaskButton'} style={{backgroundColor: '#FBA237'}}>Связаться</button>
                     </div>
                     :
                     null}

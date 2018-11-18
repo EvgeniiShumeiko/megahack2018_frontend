@@ -37,7 +37,7 @@ export class SmallTask extends Component {
                 <div className={'smallTaskTitle'}>
                     <div className={'smallTaskBio'}><img src={human} height={'40px'}/><label>{reporter}</label></div>
                     <div className={'smallTaskBio'}><img src={calendar} height={'40px'}/><label>{date} дней</label></div>
-                    <button className={'smallTaskButton'}>Смотреть</button>
+                    <button className={'smallTaskButton'}>Принять</button>
                 </div>
             </div>
         </div>)
