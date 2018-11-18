@@ -38,7 +38,7 @@ export default function(res) {
             .get(`${url}/account/exists/${forUser[0]}`, { headers: { authorization: localStorage.getItem("secretKey") } })
             .then(response => {
                 if ((response.data && users[0] !== users[1]) || room === "chat_for_all") {
-                    if (room !== "chat_for_all") SendPush(res.data, forUser[0]);
+                    if (room !== "chat_for_all") SendPush(res.data, forUser[0], room);
 
                     ReactDOM.render(
                         <Provider store={store}>
