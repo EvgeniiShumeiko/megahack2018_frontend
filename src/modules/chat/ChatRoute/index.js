@@ -93,6 +93,9 @@ const App = ({ configUrl, userData, roomName, roomPassword, st }) => (
                     if (!room.joined) {
                         return <h1>Joining room...</h1>;
                     }
+
+                    // console.log(localMedia);
+                    // console.log(remoteMedia);
                     const remoteVideos = remoteMedia.filter(m => m.kind === "video");
                     const localVideos = localMedia.filter(m => m.kind === "video" && m.shared);
                     const localScreens = localVideos.filter(m => m.screenCapture);
@@ -103,7 +106,7 @@ const App = ({ configUrl, userData, roomName, roomPassword, st }) => (
                                 <h1>{room.providedName}</h1>
                                 <div>
                                     <span>
-                                        {peers.length} Peer{peers.length !== 1 ? "s" : ""}
+                                        {peers.length} пользователей
                                     </span>
                                     <PeerList
                                         room={room.address}
@@ -126,7 +129,7 @@ const App = ({ configUrl, userData, roomName, roomPassword, st }) => (
 
                     Screensharing in Chrome requires an extension to be installed.
                   */}
-                                    {!localScreens.length && <RequestDisplayMedia />}
+                                    {!localScreens.length && <RequestDisplayMedia/>}
 
                                     {/*
                     The <StopSharingLocalMedia/> component will remove a media track from being
@@ -136,16 +139,16 @@ const App = ({ configUrl, userData, roomName, roomPassword, st }) => (
                     Including the `autoRemove` attribute will end the unshared media track.
                   */}
                                     {!!localScreens.length && (
-                                        <MediaControls media={localScreens[0]} autoRemove render={({ stopSharing }) => <button onClick={stopSharing}>Stop Screenshare</button>} />
+                                        <MediaControls media={localScreens[0]} autoRemove render={({ stopSharing }) => <button onClick={stopSharing}>Остановить демонстрацию</button>} />
                                     )}
                                 </div>
                                 <UserControls
                                     render={({ user, isMuted, mute, unmute, pauseVideo, resumeVideo, isPaused }) => (
                                         <div>
                                             {/* A very basic method for setting a display name */}
+                                            <button onClick={() => (isMuted ? unmute() : mute())}>{isMuted ? "Включить звук" : "Выключить звук"}</button>
+                                            <button onClick={() => (isPaused ? resumeVideo() : pauseVideo())}>{isPaused ? "Включить видео" : "Выключить видео"}</button>
                                             <div className="display-name-editor"> {user.displayName} </div>
-                                            <button onClick={() => (isMuted ? unmute() : mute())}>{isMuted ? "Unmute" : "Mute"}</button>
-                                            <button onClick={() => (isPaused ? resumeVideo() : pauseVideo())}>{isPaused ? "Video On" : "Video Off"}</button>
                                         </div>
                                     )}
                                 />
@@ -177,8 +180,10 @@ const App = ({ configUrl, userData, roomName, roomPassword, st }) => (
                                         className={StyledChatListContainer}
                                         renderGroup={({ chats, peer }) => (
                                             <StyledMessageGroup key={chats[0].id}>
+                                                {/*<input value={JSON.stringify(chats)} id={"okay"}/>*/}
+                                                {/*<input value={JSON.stringify(peer)} id={"okay"}/>*/}
                                                 <StyledMessageMetadata>
-                                                    <StyledDisplayName>{peer.displayName ? peer.displayName : "Anonymous"}</StyledDisplayName>{" "}
+                                                    <StyledDisplayName>{peer.displayName ? peer.displayName : chats[0].displayName}</StyledDisplayName>{" "}
                                                     <StyledTimestamp>{chats[0].time.toLocaleTimeString()}</StyledTimestamp>
                                                 </StyledMessageMetadata>
                                                 {/*
