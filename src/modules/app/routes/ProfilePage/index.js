@@ -7,6 +7,9 @@ import './style.styl';
 import Header from "../Header";
 import {TopBar} from "./topBar";
 import {PersonalTasks} from "./PersonalTasks";
+import human from './assets/human.jpg'
+import {getMe, getMentor} from "../../store/effects";
+import {Link} from "react-router-dom";
 
 @connect(({ user }) => ({ user }))
 export default class ProfilePage extends Component {
@@ -14,8 +17,10 @@ export default class ProfilePage extends Component {
         super();
         this.state = {
             currentPage: 'Мои заказы',
+            lonely: true,
         };
         this.onClick = this.onClick.bind(this);
+        this.onAnotherClick = this.onAnotherClick.bind(this);
     }
 
     static propTypes = {
@@ -23,8 +28,19 @@ export default class ProfilePage extends Component {
     };
 
     onClick = (event) => {
-        this.setState({currentPage: event.target.id});
+        getMentor().then(mentor => {
+            getMe().then(me => window.location.href = ' /chat/?room=' + mentor + '_' + me);
+        });
+        console.log(mentor)
     };
+
+    onAnotherClick = (event) => {
+
+    }
+
+    componentWillMount() {
+        getMentor().then(res => this.setState({lonely: res !== undefined}));
+    }
 
     render() {
         const { user } = this.props;
@@ -32,7 +48,7 @@ export default class ProfilePage extends Component {
         const { currentPage } = this.state;
 
         return (
-            <div>
+            <div style={{position: 'relative'}}>
                 <Header/>
                 <div className={'title'}>
                     Личный кабинет
@@ -46,6 +62,23 @@ export default class ProfilePage extends Component {
                 </div>
                 {currentPage === 'Мои заказы' ?
                 <PersonalTasks/>
+                    :
+                    null}
+                {currentPage === 'Мои заказы' && !this.state.lonely ?
+                    <div className={'personalMentor'}>
+                        <img className={'mentorImage'} src={human}/>
+                        <span>Микеев Максим</span>
+                        <span>Наставник</span>
+                        <button onClick={this.onClick} className={'personalTaskButton'} style={{backgroundColor: '#FBA237'}}>Связаться</button>
+                    </div>
+                    :
+                    null}
+                {currentPage === 'Мои заказы' && this.state.lonely ?
+                    <div className={'personalMentor'}>
+                        <img className={'mentorImage'} src={human}/>
+                        <span>Найти наставника</span>
+                        <Link to={'/'} className={'personalTaskButton'} style={{backgroundColor: '#FBA237'}}>Поиск</Link>
+                    </div>
                     :
                     null}
             </div>

@@ -5,6 +5,10 @@ import { DisptachProps } from '@core/props';
 
 import './style.styl';
 import Header from "../Header";
+import first from './assets/first.jpg';
+import second from './assets/second.jpg';
+import third from './assets/third.jpg';
+import main from './assets/main.jpg'
 
 @connect(({ user }) => ({ user }))
 export default class RootRoute extends Component {
@@ -31,7 +35,7 @@ export default class RootRoute extends Component {
                     </div>
                     <div className={'planLeft'}>
                         <div className={'planLeftImage'}>
-
+                            <img src={first} height={'100%'}/>
                         </div>
                         <div className={'planRightText'}>
                             <span className={'planNum'}>1.</span>

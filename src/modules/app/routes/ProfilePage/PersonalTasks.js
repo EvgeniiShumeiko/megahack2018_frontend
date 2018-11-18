@@ -11,6 +11,7 @@ import moment from "moment";
 import {SmallTask} from "../TaskExchange/smallTask";
 import {PersonalTask} from "./PersonalTask";
 import environment from '@core/environment.json';
+import {Link} from "react-router-dom";
 
 const url = environment.API.HOST
 
@@ -21,7 +22,6 @@ export class PersonalTasks extends Component {
         this.state = {
             tasks: [],
         };
-        this.onClick = this.onClick.bind(this);
     }
 
     static propTypes = {
@@ -39,22 +39,17 @@ export class PersonalTasks extends Component {
             })}));
     }
 
-    onClick = (event) => {
-        getMentor().then(mentor => {
-            getMe().then(me => window.location.href = ' /chat/?room=' + mentor + '_' + me);
-        });
-        console.log(mentor)
-    };
-
     render() {
         const { user } = this.props;
 
         console.log(this.state.tasks);
 
-        if (this.state.tasks.length === 1)
+        if (this.state.tasks.length === 0)
             return(
-                <div style={{marginLeft: '15%'}}>
-                    <button className={'personalTaskButton'}>новый заказ</button>
+                <div style={{position: 'relative'}}>
+                    <div style={{marginLeft: '15%'}}>
+                        <Link to={'/taskExchange'} className={'personalTaskButton'}>Новый заказ</Link>
+                    </div>
                 </div>
             );
         else
@@ -62,12 +57,6 @@ export class PersonalTasks extends Component {
                 <div className={'personalTasksTable'}>
                     {this.state.tasks.map(task =>
                         <PersonalTask title={task.title} price={task.price} reporter={task.reporter} date={task.date}/>)}
-                    <div className={'personalMentor'}>
-                        <img className={'mentorImage'} src={''} height={'100%'} width={'100%'} style={{objectFit: 'fill'}}/>
-                        <span>Микеев Максим</span>
-                        <span>Наставник</span>
-                        <button onClick={this.onClick} className={'personalTaskButton'} style={{backgroundColor: '#FBA237'}}>Связаться</button>
-                    </div>
                 </div>
             );
     }
