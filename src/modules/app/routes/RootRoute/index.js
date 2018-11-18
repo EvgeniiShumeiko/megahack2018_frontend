@@ -10,6 +10,7 @@ import second from './assets/second.jpg';
 import third from './assets/third.jpg';
 import main from './assets/main.jpg';
 import fourth from './assets/photo.jpg';
+import {Link} from "react-router-dom";
 
 @connect(({ user }) => ({ user }))
 export default class RootRoute extends Component {
@@ -28,7 +29,7 @@ export default class RootRoute extends Component {
                     <div className={'info'}>
                         <span className={'infoTitle'}>Everland 2.0</span>
                         <span className={'infoText'}>Пространство, которое дает возможности профессионального роста, интеллектуального развития для людей с инвалидностью.</span>
-                        <button className={'infoButton'}>Начать работу</button>
+                        <Link to={'/profilePage'} className={'infoButton'}>Начать работу</Link>
                     </div>
                     <div className='planeRightImage'>
                         <img src={main}/>
@@ -80,7 +81,7 @@ export default class RootRoute extends Component {
                     <div className={'planTitleContainer'}>
                         <div className={'planHr'}/>
                         <span className={'planTitle'}>Мотивационный слоган!</span>
-                        <button className={'infoButton'}>Начать работу</button>
+                        <Link to={'/profilePage'} className={'infoButton'}>Начать работу</Link>
                     </div>
                     <div style={{margin: '20px'}}/>
                 </div>

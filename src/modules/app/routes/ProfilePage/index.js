@@ -82,7 +82,7 @@ export default class ProfilePage extends Component {
                     :
                     null}
                 {currentPage === 'Мои заказы' && !this.state.lonely ?
-                    <div className={'personalMentor'}>
+                    <div className={'profilePersonalMentor'}>
                         <img className={'mentorImage'} src={human}/>
                         <span>{`${this.state.mentor.accountInfo.surname} ${this.state.mentor.accountInfo.name}`}</span>
                         <span>Наставник</span>
