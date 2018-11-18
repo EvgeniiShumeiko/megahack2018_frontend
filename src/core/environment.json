@@ -1,12 +1,8 @@
 {
     "DEBUG": true,
     "API": {
-<<<<<<< HEAD
-        "HOST": "https://8cc92bc9.ngrok.io"
-=======
         "HOST": "https://8cc92bc9.ngrok.io",
         "SOCKET": "https://nammm.ru:3000/"
->>>>>>> bae8b1a9b2ff9b9977efd75b3c9dc0a4b4939d78
     },
     "SESSION": {
         "KEY": "session_token"
