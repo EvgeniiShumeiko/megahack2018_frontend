@@ -49,9 +49,11 @@ axios
                 window.socket.on("up", ddd => {
                     const d = JSON.parse(ddd);
                     console.log(ddd);
-
-                    if (window.confirm(`${d.user.name} ${d.user.surname} (${d.user.login}) хочет связаться с вами, принять?`)) {
-                        window.location.href = `https://nammm.ru/chat/?room=${d.user.login}_${data.data.login}`;
+                    if (window.location.pathname.indexOf("chat") === -1 && window.location.pathname.indexOf(d.user.login) === -1)
+                    {
+                        if (window.confirm(`${d.user.name} ${d.user.surname} (${d.user.login}) хочет связаться с вами, принять?`)) {
+                            window.location.href = `https://nammm.ru/chat/?room=${d.user.login}_${data.data.login}`;
+                        }
                     }
                 });
                 function SendPush(user, login) {
