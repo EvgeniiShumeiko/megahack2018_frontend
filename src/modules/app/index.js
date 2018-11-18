@@ -73,7 +73,7 @@ export default function(user = {}) {
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Router>
-                    <AvailableMentors/>
+                    <App/>
                 </Router>
             </ConnectedRouter>
         </Provider>,
