@@ -15,6 +15,7 @@ export default class TaskExchange extends Component {
         super();
         this.state = {
             tasks: [],
+            update: -1,
         }
     }
 
@@ -22,9 +23,14 @@ export default class TaskExchange extends Component {
         ...DisptachProps,
     };
 
+    update = () => {
+        this.setState({ update: this.state.update * -1});
+    };
+
     componentWillMount() {
         getExchangeTask().then(res => this.setState({tasks: res.map(task => {
             return {
+                id: task.id,
                 title: task.label,
                 price: task.price,
                 reporter: task.reporter.surname + ' ' + task.reporter.name[0] + '.',
@@ -48,7 +54,7 @@ export default class TaskExchange extends Component {
                 <div className={'taskExchangeContainer'}>
                     <div className={'smallTaskTable'}>
                         {this.state.tasks.map(task =>
-                        <SmallTask id={task.id} title={task.title} price={task.price} reporter={task.reporter} date={task.date}/>)}
+                        <SmallTask id={task.id} title={task.title} price={task.price} reporter={task.reporter} date={task.date} update={this.update}/>)}
                     </div>
                 </div>
             </div>
