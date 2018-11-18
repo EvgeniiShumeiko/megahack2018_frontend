@@ -56,8 +56,8 @@ axios
                         }
                     }
                 });
-                function SendPush(user, login) {
-                    console.log("send push:", user, login);
+                function SendPush(user, login, room) {
+                    console.log("send push:", user, login, room);
                     window.socket.emit(
                         "up",
                         JSON.stringify({
