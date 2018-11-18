@@ -27,14 +27,13 @@ export class PersonalTask extends Component {
                 <div className={'personalTaskImage'}/>
                 <div className={'personalTaskMeta'}>
                     <div className={'titleWithTable'}>
-                        <label className={'personalTitle'}>{title}</label>
-                        <Link to={'/board'} className={'personalTaskButton'}>Ход работы</Link>
+                        <label className={'personallTitle'}>{title}</label>
+                        <Link to={'/board'} className={'personalTaskButtonn'}>Ход работы</Link>
                     </div>
                     <div className={'personalTaskHr'}/>
-                    <div className={'smallTaskTitle'}>
+                    <div className={'smallTaskTitlee'}>
                         <div className={'smallTaskBio'}><img src={human} height={'40px'}/><label>{reporter}</label></div>
-                        <div className={'smallTaskBio'}><img src={calendar} height={'40px'}/><label>{date}</label></div>
-                        <label className={'contactMentor'}>Связаться с заказчиком</label>
+                        <div className={'smallTaskBio'}><img src={calendar} height={'40px'}/><label>{date} дней</label></div>
                     </div>
                 </div>
             </div>)
