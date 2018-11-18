@@ -42,7 +42,7 @@ export default function(res) {
 
                     ReactDOM.render(
                         <Provider store={store}>
-                            <App configUrl={CONFIG_URL} roomName={room} userData={res.data} roomPassword={params.get("key") || ""} />
+                            <App configUrl={CONFIG_URL} roomName={room} userData={res.data} forUser={forUser[0]} roomPassword={params.get("key") || ""} />
                         </Provider>,
                         document.getElementById("root")
                     );

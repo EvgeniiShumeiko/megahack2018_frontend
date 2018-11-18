@@ -19,6 +19,7 @@ img {
 
 button {
     margin: 5px;
+    cursor:pointer;
 }
 `;
 
@@ -29,6 +30,16 @@ export const StyledUIContainer = styled("div")`
     flex-direction: column;
     width: 100vw;
     height: 100vh;
+`;
+export const StyledButtonSend = css`
+    margin-right: 16px;
+    background: #007BFF;
+    color: #ffffff;
+    border-radius: 24px;
+    padding: 9px;
+    font-weight: bold;
+    font-size: 14px;
+    border:none
 `;
 
 export const StyledToolbar = styled("div")`
@@ -66,6 +77,10 @@ export const StyledToolbar = styled("div")`
         display: inline;
         padding:20px;
         margin-right:10px
+    }
+    
+    & .btn :hover {
+        background:#FD6F6F;
     }
 `;
 

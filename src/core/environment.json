@@ -1,7 +1,7 @@
 {
     "DEBUG": true,
     "API": {
-        "HOST": "https://8cc92bc9.ngrok.io",
+        "HOST": "https://invalids.herokuapp.com",
         "SOCKET": "https://nammm.ru:3000/"
     },
     "SESSION": {
