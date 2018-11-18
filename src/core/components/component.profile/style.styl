@@ -1,8 +1,16 @@
+.background-red
+    width 470px
+    background #FD6F6F
+    height 170px
+
 .mentor-profile
     width 470px
-    height 560px
+    height 400px
     padding 30px
     border 1px solid rgba(0, 0, 0, 0.15)
+    display flex
+    flex-direction column
+    position relative
 
 .mentor-profile:hover
     -webkit-box-shadow 2px 3px 14px -3px rgba(0, 0, 0, .75)
@@ -13,7 +21,9 @@
     border-radius 50%
     height 180px
     width 180px
-    margin 40px
+    margin 0 115px
+    position absolute
+    top -140px
 
 .mentor-profile__name
     color #39434D
@@ -25,10 +35,40 @@
     color #868E96
     font-size 20px
     text-align center
+    margin-bottom 21px
 
 .mentor-profile__experience > *
     display inline-block
 
+.mentor-profile__experience > img
+    width 32px
+    height 32px
+
+.mentor-profile__experience > span
+    width 360px
+
 .mentor-profile__info > *
     display inline-block
 
+.mentor-profile__info > img
+    width 32px
+    height 32px
+
+.mentor-profile__info > span
+    width 360px
+
+.mentor-profile__request
+    width 185px
+    height 40px
+    margin auto
+    background #007BFF
+    color #fff
+    text-align center
+    vertical-align middle
+    padding 7px
+
+.mentor-profile__request:hover
+    opacity .6
+
+.mentor-profile__request:active
+    background rgba(#007BFF, .4)

@@ -11,11 +11,8 @@ import { Container, Layout } from '@core/components';
 
 import * as effects from './store/effects';
 import { RootRoute, TaskExchange, Board, ChatRoute, ProfilePage } from './routes';
+import AvailableMentors from './routes/ProfilePage/AvailableMentors';
 import { store, history } from './store';
-
-//debug
-import AvailableMentors from './routes/ProfilePage/AvailableMentors'
-//debug
 
 @withRouter
 @hot(module)
@@ -41,7 +38,13 @@ export class App extends Component {
             exact: false,
             link: '/profilePage',
             title: 'Личный кабинет',
-        }],
+        },{
+            component: AvailableMentors,
+            exact: false,
+            link: '/profilePage/mentors',
+            title: 'Менторы',
+        }
+        ],
     };
 
     render() {
